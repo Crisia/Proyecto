@@ -131,7 +131,7 @@ function load_state()
           <div class="panel panel-default">
           
             <div class="panel-heading">
-              <strong>Customer Information</strong>
+              <strong>Nueva Muestra</strong>
             </div>
             
             <div class="panel-body">
