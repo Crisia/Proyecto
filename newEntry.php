@@ -38,31 +38,33 @@ catch (Exception $ex)
 
 <script type="text/javascript">
 $(document).ready(function(){
-	load_country();
-	$("#country").change(function(){load_state();});
-	$("#state").attr("disabled",true);
+    load_provincias();
+	$("#provincia").change(function(){load_cantones();});
+    $("#canton").change(function(){load_distritos();});
+	$("#canton").attr("disabled",true);
+    $("#distrito").attr("disabled",true);
 });
 
-function load_country()
+function load_provincias()
 {
 	startSpinner();
-	$.get("scripts/load-country.php", function(result){
+	$.get("scripts/load-provincias.php", function(result){
 		if(result == false)
 		{
 			alert("Error");
 		}
 		else
 		{
-			$('#country').append(result);			
+			$('#provincia').append(result);
 		}
 		stopSpinner();
 	});	
 }
-function load_state()
+function load_cantones()
 {
 	startSpinner();
-	var code = $("#country").val();
-	$.get("scripts/load-state.php", { code: code },
+	var id = $("#provincia").val();
+	$.get("scripts/load-cantones.php", { id: id },
 		function(result)
 		{
 			if(result == false)
@@ -71,14 +73,36 @@ function load_state()
 			}
 			else
 			{
-				$("#state").attr("disabled",false);
-				document.getElementById("state").options.length=1;
-				$('#state').append(result);			
+				$("#canton").attr("disabled",false);
+				document.getElementById("canton").options.length=1;
+				$('#canton').append(result);
 			}
 			stopSpinner();
 		}
 
 	);
+}
+function load_distritos()
+{
+    startSpinner();
+    var id = $("#canton").val();
+    $.get("scripts/load-distritos.php", { id: id },
+        function(result)
+        {
+            if(result == false)
+            {
+                alert("Error");
+            }
+            else
+            {
+                $("#distrito").attr("disabled",false);
+                document.getElementById("distrito").options.length=1;
+                $('#distrito').append(result);
+            }
+            stopSpinner();
+        }
+
+    );
 }
 </script>
 
@@ -90,31 +114,30 @@ function load_state()
       </div>
     </div>
     
-    <!--  -->
-    <?php if ($transaction && $transaction->getTransactionId()){ ?>
-        <!-- Sender/Receiver -->
+    <!-- Result -->
+    <?php if ($newEntry && $newEntry->getId()){ ?>
       <div class="row">
         <div class="col-lg-6">
           <div class="panel panel-default">
           
             <div class="panel-heading">
-              <strong><?=($transaction->getTransactionTypeId()==Transaction::TYPE_RECEIVER)?'Receiver':'Sender'?> Information</strong>
+              <strong>Información</strong>
             </div>
             
             <div class="panel-body">
               <div class="row">
               	<div class="col-lg-12">           	
                   <table class="table">
-  									<tbody>
-  										<tr><td>Familia</td><td><?=$person->getName()?></td></tr>
-  										<tr><td>Género</td><td><?=$person->getTypeId()?></td></tr>
-  										<tr><td>Especie</td><td><?=$person->getPersonalId()?></td></tr>
-  										<tr><td>Localización</td><td><?=$person->getExpirationDateId()?></td></tr>
-  										<tr><td>Colector</td><td><?=$person->getAddress()?></td></tr>
-  										<tr><td>Provincia</td><td><?=$person->getCity()?></td></tr>
-  										<tr><td>Canton</td><td><?=$person->getFrom()?></td></tr>
-  										<tr><td>Distrito</td><td><?=$person->getBirthDate()?></td></tr>
-  									</tbody>
+                    <tbody>
+                        <tr><td>Familia</td><td><?=$newEntry->getFamilia()?></td></tr>
+                        <tr><td>Género</td><td><?=$newEntry->getGenero()?></td></tr>
+                        <tr><td>Especie</td><td><?=$newEntry->getEspecie()?></td></tr>
+                        <tr><td>Localización</td><td><?=$newEntry->getLocalizacion()?></td></tr>
+                        <tr><td>Colector</td><td><?=$newEntry->getColector()?></td></tr>
+                        <tr><td>Provincia</td><td><?=$newEntry->getProvincia()?></td></tr>
+                        <tr><td>Canton</td><td><?=$newEntry->getCanton()?></td></tr>
+                        <tr><td>Distrito</td><td><?=$newEntry->getDistrito()?></td></tr>
+                    </tbody>
                   </table>
                 </div>           
               </div>
@@ -123,9 +146,9 @@ function load_state()
           </div>
         </div>
       </div>
-      <!-- Sender/Receiver -->
+      <!-- Result -->
   	<?php } else { ?>
-      <!-- New Transaction -->
+      <!-- New Entry -->
       <div class="row">
         <div class="col-lg-6">
           <div class="panel panel-default">
@@ -141,30 +164,29 @@ function load_state()
                   <form role="form" data-toggle="validator" method="post" action="newEntry.php">
                     <fieldset>
                             <div class="form-group">
-      						<select class="form-control input-sm" tabindex="1" name="transactionTypeId" id="transactionTypeId" required>
+      						<select class="form-control input-sm" tabindex="1" name="familia" id="familia" required>
                               <option value="">Familia</option>
                               <option value="1">Uno</option>
       		                  <option value="2">Dos</option>
       		                </select>
-      		                <input id="amount" name="amount" type="number" step="any" min="1" class="form-control input-sm" tabindex="2" autocomplete="off" placeholder="Género" required>
-      		                <input id="uid" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Especie" name="uid" required>
-      		                <input id="first_name" class="form-control input-sm" type="text" tabindex="4" autocomplete="off" placeholder="Localización" name="first_name" required>
-      		                <input id="last_name" class="form-control input-sm" type="text" tabindex="5" autocomplete="off" placeholder="Colector" name="last_name" required>
-      		                <input id="phone" class="form-control input-sm" type="text" tabindex="6" autocomplete="off" placeholder="Provincia" name="phone" required>
-      		                <input id="email" class="form-control input-sm" type="email" tabindex="7" autocomplete="off" placeholder="Canton" name="email" data-error="That email address is invalid" required>
-      		                <!-- Country -->
-      		                <select class="form-control input-sm" tabindex="8" id="country" name="country" required>
+      		                <input id="genero" name="genero" type="number" step="any" min="1" class="form-control input-sm" tabindex="2" autocomplete="off" placeholder="Género" required>
+      		                <input id="especie" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Especie" name="especie" required>
+      		                <input id="localizacion" class="form-control input-sm" type="text" tabindex="4" autocomplete="off" placeholder="Localización" name="localizacion" required>
+      		                <input id="colector" class="form-control input-sm" type="text" tabindex="5" autocomplete="off" placeholder="Colector" name="colector" required>
+      		                <input id="validador" class="form-control input-sm" type="text" tabindex="6" autocomplete="off" placeholder="Validador" name="validador" required>
+      		                <input id="estado_muestra" class="form-control input-sm" type="text" tabindex="7" autocomplete="off" placeholder="Estado de la muestra" name="estado_muestra" data-error="el texto ingresado es invalido" required>
+
+      		                <!-- Provincia -->
+      		                <select class="form-control input-sm" tabindex="8" id="provincia" name="provincia" required>
       		                    <option value="">Provincia</option>
       		                </select>                
-      		                <!-- State -->  
-      		                <select class="form-control input-sm" tabindex="9" id="state" name="state" required>
+      		                <!-- Canton -->
+      		                <select class="form-control input-sm" tabindex="9" id="canton" name="canton" required>
       		                    <option value="">Canton</option>
       		                </select>
-      		                <!-- Type -->  
-      		                <select class="form-control input-sm" tabindex="10" name="type" id="type" required>
+      		                <!-- Distrito -->
+      		                <select class="form-control input-sm" tabindex="10" name="distrito" id="distrito" required>
       		                    <option value="">Distrito</option>
-      		                    <option value="2">Uno</option>
-                                <option value="2">Dos</option>
       		                </select>
                             <button name="btnNewTransaction" type="submit" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block">Crear nueva muestra</button>
       	                </div>

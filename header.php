@@ -81,7 +81,7 @@ if (strpos($page, "login.php") === false)
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <i class="fa fa-user fa-fw"></i>
-                        <?=$account->getUsername()?>
+                        <?=$account->getName()?>
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -111,7 +111,7 @@ if (strpos($page, "login.php") === false)
                     <ul class="nav" id="side-menu">
                       <?php if ($account->checkPermission('ADMIN')){ ?>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Servicios Admisnistrativos<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Servicios Administrativos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="users.php">Gentión de Usuarios</a>
