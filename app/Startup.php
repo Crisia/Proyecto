@@ -328,13 +328,4 @@ class DB
     return $data;
   }
 
-  public function getStates($countryCode)
-  {
-    $states = array();
-
-    $states[] = array('Code'=>'CA','Name'=>'Cartago');
-    $states[] = array('Code'=>'SJ','Name'=>'San José');
-    return $states;
-  }
-
 }
