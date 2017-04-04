@@ -28,39 +28,39 @@ if (strpos($page, "login.php") === false)
     <title>Sistema del Herbario de la Escuela de Ingeniería Forestal</title>
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Bootstrap Core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap DatePicker CSS -->
-    <link href="bower_components/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
     
     <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
     
     <!-- Timeline CSS -->
-    <link href="dist/css/timeline.css" rel="stylesheet">
+    <link href="/dist/css/timeline.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   	<!-- JQUERY JS -->
-  	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+  	<script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
   	  	
 </head>
 
 <body>
-    <div class="spinner"><img alt="loading" src="images/spinner.gif"></div>
+    <div class="spinner"><img alt="loading" src="/images/spinner.gif"></div>
     
     <div id="wrapper">
 
@@ -73,7 +73,7 @@ if (strpos($page, "login.php") === false)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="dashboard.php">Herbario del TEC</a>
+                <a class="navbar-brand" href="/dashboard.php">Herbario del TEC</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -88,7 +88,7 @@ if (strpos($page, "login.php") === false)
                       <?php if ($account->checkPermission('SETTING_USER_PROFILE')){ ?>
                         <?php if ($account->checkPermission('SETTING_USER_PROFILE_CHANGE_PASSWORD')){ ?>
                           <li>
-                            <a href="userProfile.php">
+                            <a href="/userProfile.php">
                               <i class="fa fa-user fa-fw"></i> Perfil del usuario
                             </a>
                           </li>
@@ -96,7 +96,7 @@ if (strpos($page, "login.php") === false)
                           <li class="divider"></li>
                       <?php }?>
                           <li>
-                            <a href="logout.php">
+                            <a href="/logout.php">
                               <i class="fa fa-sign-out fa-fw"></i> Salir
                             </a>
                           </li>
@@ -114,34 +114,34 @@ if (strpos($page, "login.php") === false)
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Servicios Administrativos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="users.php">Gentión de Usuarios</a>
+                                    <a href="/users/index/">Gentión de Usuarios</a>
                                 </li>
                                 <li>
-                                    <a href="families.php">Gentión de Familias</a>
+                                    <a href="/families.php">Gentión de Familias</a>
                                 </li>
                                 <li>
-                                    <a href="collectors.php">Gentión de Colectores</a>
+                                    <a href="/collectors.php">Gentión de Colectores</a>
                                 </li>
                             </ul>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('PENDING')){ ?>
                         <li>
-                            <a href="pending.php">
+                            <a href="/pending.php">
                               <i class="fa fa-clock-o fa-fw"></i>Validadar Muestras
                             </a>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('SEARCH')){ ?>
                         <li>
-                            <a href="search.php">
+                            <a href="/search.php">
                               <i class="fa fa-search fa-fw"></i>Realizar Consultas
                             </a>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('NEW')){ ?>
                         <li>
-                            <a href="newEntry.php">
+                            <a href="/newEntry.php">
                               <i class="fa fa-edit fa-fw"></i>Digitar nuevas muestras
                             </a>
                         </li>

@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="0;url=pages/index.html">
-<title>Sistema del Herbario del TEC</title>
-<script language="javascript">
-    window.location.href = "dashboard.php"
-</script>
-</head>
-<body>
-Go to <a href="login.php">dashboard.php</a>
-</body>
-</html>
+<?php
+
+require_once 'app/Startup.php';
+
+if (isset($_GET['controller']) && isset($_GET['action'])) {
+  $controller = $_GET['controller'];
+  $action     = $_GET['action'];
+} else {
+  $controller = 'pages';
+  $action     = 'home';
+}
+
+require_once 'app/views/layout.php';
+?>
