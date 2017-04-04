@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-03-26 13:10:04
+Date: 2017-04-03 22:22:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -772,12 +772,13 @@ CREATE TABLE `Usuario` (
   `Nombre` varchar(126) COLLATE utf8_unicode_ci NOT NULL,
   `Rol` varchar(126) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of Usuario
 -- ----------------------------
 INSERT INTO `Usuario` VALUES ('1', 'test@test.com', 'test', 'Cuenta de Prueba', 'admin');
+INSERT INTO `Usuario` VALUES ('2', 'tavogm@gmail.com', '123456', 'Gustavo Granados', 'admin');
 
 -- ----------------------------
 -- Procedure structure for `cantones`
@@ -830,6 +831,34 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario`(IN `pUser` varchar(32))
 BEGIN
 
 	select * from Usuario u where u.Usuario = pUser;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `usuarioById`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `usuarioById`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarioById`(IN `pId` int)
+BEGIN
+
+	select * from Usuario u where u.Id = pId;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `usuarios`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `usuarios`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarios`()
+BEGIN
+	
+	select * from Usuario;
 
 END
 ;;
