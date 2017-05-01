@@ -143,6 +143,97 @@ call mostrarMuestra("Asteraceae","Cichorium","endivia","143");
 
 
 
+--------------------------------------------------------------------------
+---------------------------------------------------------------------------
+------------------------------------------------------------------------
+INSERT INTO `Provincia` VALUES ('1', 'San José');
+INSERT INTO `Provincia` VALUES ('2', 'Alajuela');
+INSERT INTO `Provincia` VALUES ('3', 'Cartago');
+INSERT INTO `Provincia` VALUES ('4', 'Heredia');
+INSERT INTO `Provincia` VALUES ('5', 'Guancaste');
+INSERT INTO `Provincia` VALUES ('6', 'Puntarenas');
+INSERT INTO `Provincia` VALUES ('7', 'Limón');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'San José', '44', '352366');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES ( 1, 'Escazú', '34.49', '60201');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES ( 1, 'Desamparados', '118.26', '221346');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Puriscal', '553.66', '32767');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Tarrazú', '297.5', '16419');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Aserrí', '167.1', '56422');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Mora', '162.04', '24333');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES ( 1, 'Goicoechea', '31.5', '131529');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Santa Ana', '61.42', '39905');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Alajuelita', '21.17', '81721');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Vázquez de Coronado', '222.2', '63098');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Acosta', '342.24', '20906');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Tibás', '8.15', '81478');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Moravia', '28.62', '55895');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Montes de Oca', '15.16', '55814');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Turrubares', '415.29', '5482');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Dota', '400.22', '7465');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Curridabat', '15.95', '69474');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'Pérez Zeledón', '1905.51', '140872');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (1, 'León Cortés Castro', '120.8', '13288');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Alajuela', '388.43', '255598');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'San Ramón', '1018.64', '77380');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Grecia', '395.72', '74860');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'San Mateo', '125.9', '5904');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Atenas', '127.19', '25033');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Naranjo', '126.62', '42637');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Palmares', '38.06', '33401');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Poás', '73.84', '28469');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Orotina', '141.92', '17866');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'San Carlos', '3347.98', '151322');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Zarcero', '155.13', '12368');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Valverde Vega', '120.25', '18407');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Upala', '1580.67', '44556');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Los Chiles', '1358.86', '23902');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (2, 'Guatuso', '758.32', '15068');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Cartago', '287.77', '149657');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Paraíso', '411.91', '60005');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'La Unión', '44.83', '91090');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Jiménez', '286.43', '15859');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Turrialba', '1642.67', '78217');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Alvarado', '81.06', '13862');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'Oreamuno', '202.31', '44403');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (3, 'El Guarco', '167.69', '39223');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Heredia', '282.6', '118872');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Barva', '53.8', '37041');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Santo Domingo', '24.84', '38959');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Santa Bárbara', '53.21', '33334');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'San Rafael', '48.39', '42398');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'San Isidro', '26.96', '18028');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Belén', '12.15', '22400');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Flores', '6.96', '17298');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'San Pablo', '7.53', '23370');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (4, 'Sarapiquí', '2140.54', '54537');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Liberia', '1436.47', '55921');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Nicoya', '1333.68', '47823');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Santa Cruz', '1312.27', '46460');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Bagaces', '1273.49', '18368');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Carrillo', '577.54', '32168');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Cañas', '682.2', '27970');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Abangares', '675.76', '18319');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Tilarán', '638.39', '20337');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Nandayure', '565.59', '11185');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'La Cruz', '1383.9', '19978');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (5, 'Hojancha', '261.42', '7289');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Puntarenas', '1842.33', '118928');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Esparza', '216.8', '27199');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Buenos Aires', '2384.22', '47576');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Montes de Oro', '244.76', '12495');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Osa', '1930.24', '29547');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Quepos', '543.77', '23915');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Golfito', '1753.96', '39699');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Coto Brus', '933.91', '47247');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Parrita', '478.79', '13940');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Corredores', '620.6', '44180');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (6, 'Garabito', '316.31', '13165');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Limón', '1765.79', '106356');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Pococí', '2403.49', '121735');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Siquirres', '860.19', '60881');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Talamanca', '2809.93', '32158');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Matina', '772.64', '39961');
+INSERT INTO Canton (ProvinciaId,Nombre,Area,Poblacion) VALUES (7, 'Guácimo', '576.48', '41082');
 
 
 
@@ -150,6 +241,26 @@ call mostrarMuestra("Asteraceae","Cichorium","endivia","143");
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Carmen');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Merced');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Hospital');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Catedral');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Zapote');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'San Francisco de Dos Ríos');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Uruca');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Mata Redonda');
+INSERT INTO Distrito(CantonId,Nombre) VALUES ('707', 'Pavas');
 
 
 
