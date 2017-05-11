@@ -5,7 +5,7 @@
  * code is poetry
  */
 
-require_once ('app/Startup.php');
+require_once('app/Startup.php');
 
 session_start();
 $wsRequest = new WSRequest($_REQUEST);

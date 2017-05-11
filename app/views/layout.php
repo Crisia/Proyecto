@@ -1,4 +1,4 @@
-<?php include("header.php"); ?>
+<?php include("app/html/header.php"); ?>
 
 <div id="page-wrapper">
 
@@ -7,4 +7,4 @@
 </div>
 
 <!-- HEADER -->
-<?php include("footer.php"); ?>
+<?php include("app/html/footer.php"); ?>

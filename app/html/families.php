@@ -235,6 +235,6 @@
       </div>
     </div>
   </div>
-	<script type="text/javascript" src="js/gestion_familias.js"></script>
+	<script type="text/javascript" src="../../js/gestion_familias.js"></script>
 <!--___________________________________________________________________________________________________________-->
 <?php include("footer.php"); ?>

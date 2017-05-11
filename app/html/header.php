@@ -1,6 +1,6 @@
 <?php
 
-require_once ('app/Startup.php');
+require_once('app/Startup.php');
 
 session_start();
 $page = $_SERVER["REQUEST_URI"];
@@ -73,7 +73,7 @@ if (strpos($page, "login.php") === false)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/dashboard.php">Herbario del TEC</a>
+                <a class="navbar-brand" href="/app/html/dashboard.php">Herbario del TEC</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -88,7 +88,7 @@ if (strpos($page, "login.php") === false)
                       <?php if ($account->checkPermission('SETTING_USER_PROFILE')){ ?>
                         <?php if ($account->checkPermission('SETTING_USER_PROFILE_CHANGE_PASSWORD')){ ?>
                           <li>
-                            <a href="/userProfile.php">
+                            <a href="/app/html/userProfile.php">
                               <i class="fa fa-user fa-fw"></i> Perfil del usuario
                             </a>
                           </li>
@@ -96,7 +96,7 @@ if (strpos($page, "login.php") === false)
                           <li class="divider"></li>
                       <?php }?>
                           <li>
-                            <a href="/logout.php">
+                            <a href="/app/html/logout.php">
                               <i class="fa fa-sign-out fa-fw"></i> Salir
                             </a>
                           </li>
@@ -117,31 +117,31 @@ if (strpos($page, "login.php") === false)
                                     <a href="/users/index/">Gentión de Usuarios</a>
                                 </li>
                                 <li>
-                                    <a href="/families.php">Gentión de Familias</a>
+                                    <a href="/families/index/">Gentión de Familias</a>
                                 </li>
                                 <li>
-                                    <a href="/collectors.php">Gentión de Colectores</a>
+                                    <a href="/app/html/collectors.php">Gentión de Colectores</a>
                                 </li>
                             </ul>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('PENDING')){ ?>
                         <li>
-                            <a href="/pending.php">
+                            <a href="/app/html/pending.php">
                               <i class="fa fa-clock-o fa-fw"></i>Validadar Muestras
                             </a>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('SEARCH')){ ?>
                         <li>
-                            <a href="/search.php">
+                            <a href="/app/html/search.php">
                               <i class="fa fa-search fa-fw"></i>Realizar Consultas
                             </a>
                         </li>
                       <?php }?>
                       <?php if ($account->checkPermission('NEW')){ ?>
                         <li>
-                            <a href="/newEntry.php">
+                            <a href="/app/html/newEntry.php">
                               <i class="fa fa-edit fa-fw"></i>Digitar nuevas muestras
                             </a>
                         </li>

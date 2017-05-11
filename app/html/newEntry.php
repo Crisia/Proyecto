@@ -48,7 +48,7 @@ $(document).ready(function(){
 function load_provincias()
 {
 	startSpinner();
-	$.get("scripts/load-provincias.php", function(result){
+	$.get("/scripts/load-provincias.php", function(result){
 		if(result == false)
 		{
 			alert("Error");
@@ -64,7 +64,7 @@ function load_cantones()
 {
 	startSpinner();
 	var id = $("#provincia").val();
-	$.get("scripts/load-cantones.php", { id: id },
+	$.get("/scripts/load-cantones.php", { id: id },
 		function(result)
 		{
 			if(result == false)
@@ -86,7 +86,7 @@ function load_distritos()
 {
     startSpinner();
     var id = $("#canton").val();
-    $.get("scripts/load-distritos.php", { id: id },
+    $.get("/scripts/load-distritos.php", { id: id },
         function(result)
         {
             if(result == false)
