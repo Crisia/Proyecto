@@ -16,6 +16,11 @@ function call($controller, $action) {
       require_once('models/family.php');
       $controller = new FamiliesController();
       break;
+    case 'colectores':
+      // we need the model to query the database later in the controller
+      require_once('models/colector.php');
+      $controller = new ColectoresController();
+      break;
   }
 
   $controller->{ $action }();
@@ -24,7 +29,8 @@ function call($controller, $action) {
 // we're adding an entry for the new controller and its actions
 $controllers = array('pages' => ['home', 'error'],
                      'users' => ['index', 'show'],
-                     'families' => ['index', 'show']
+                     'families' => ['index', 'show'],
+                     'colectores' => ['lista', 'detalle']
   );
 
 if (array_key_exists($controller, $controllers)) {

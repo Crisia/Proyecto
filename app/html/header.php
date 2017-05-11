@@ -120,7 +120,7 @@ if (strpos($page, "login.php") === false)
                                     <a href="/families/index/">Gentión de Familias</a>
                                 </li>
                                 <li>
-                                    <a href="/app/html/collectors.php">Gentión de Colectores</a>
+                                    <a href="/colectores/lista/">Gentión de Colectores</a>
                                 </li>
                             </ul>
                         </li>
