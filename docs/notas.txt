@@ -1,0 +1,17 @@
+WEB APP
+
+Listo:
+Login
+Consulta de muestra
+
+Gustavo
+	administrar usuarios
+	validar muestrar
+	administrar validardores colectores
+
+Crisia
+	digitalizar muestra
+	bitacora
+
+Gerardo
+	administrar familia genero especie
