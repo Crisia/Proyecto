@@ -127,7 +127,7 @@ if (strpos($page, "login.php") === false)
                       <?php }?>
                       <?php if ($account->checkPermission('PENDING')){ ?>
                         <li>
-                            <a href="/app/html/pending.php">
+                            <a href="/pending/index/">
                               <i class="fa fa-clock-o fa-fw"></i>Validadar Muestras
                             </a>
                         </li>

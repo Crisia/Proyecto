@@ -112,27 +112,39 @@ class Manager
 
   public function getFamilies()
   {
+    $db = DB::getInstance();
+    $data = $db->getData("families()");
+
     $d = array();
-    $d[] = array('itemId'=>1,'itemValue'=>'Uno');
-    $d[] = array('itemId'=>2,'itemValue'=>'Dos');
+    foreach ($data as $row) {
+      $d[] = array('itemId' => $row['Id'], 'itemValue' => $row['Nombre']);
+    }
 
     return $d;
   }
 
   public function getGenres()
   {
+    $db = DB::getInstance();
+    $data = $db->getData("genres()");
+
     $d = array();
-    $d[] = array('itemId'=>1,'itemValue'=>'Uno');
-    $d[] = array('itemId'=>2,'itemValue'=>'Dos');
+    foreach ($data as $row) {
+      $d[] = array('itemId' => $row['Id'], 'itemValue' => $row['Nombre']);
+    }
 
     return $d;
   }
 
   public function getSpecies()
   {
+    $db = DB::getInstance();
+    $data = $db->getData("species()");
+
     $d = array();
-    $d[] = array('itemId'=>1,'itemValue'=>'Uno');
-    $d[] = array('itemId'=>2,'itemValue'=>'Dos');
+    foreach ($data as $row) {
+      $d[] = array('itemId' => $row['Id'], 'itemValue' => $row['Nombre']);
+    }
 
     return $d;
   }
@@ -147,17 +159,9 @@ class Report
 {
   private $data;
 
-  function __construct()
+  function __construct($wsRequest, $account, $pending)
   {
-    $this->data = array();
-    $this->data[] = array('id'=>1);
-    $this->data[] = array('id'=>2);
-    $this->data[] = array('id'=>3);
-  }
-
-  public function getTransactions()
-  {
-    return $this->data;
+    $this->data = $pending;
   }
 
   public function getReportTable()
@@ -168,38 +172,31 @@ class Report
                   <th>Familia</th>
                   <th>Género</th>
                   <th>Especie</th>
-                  <th>Fecha de Colecta</th>
                   <th>Colector</th>
                   <th>Validador</th>
-                  <th>Provincia</th>
+                  <th>Dirección</th>
+                  <th>Fecha de Colecta</th>
                 </tr>
               </thead>";
 
     $table .= "<tbody>";
 
     if(count($this->data)>0){
-      foreach ($this->data as $transaction){
-        $id = $transaction['id'];
-        $status = $transaction['Status'];
-        $customer = $transaction['Customer'];
-        $senderName = strtoupper($transaction['CustomerName']);
-        $amount = $transaction['Amount'];
-        $fee = $transaction['Fee'];
-        $receiverName = strtoupper($transaction['PersonName']);
-        $controlNumber = $transaction['ControlNumber'];
+      foreach ($this->data as $p){
+        $id = $p->id;
         $rowType = ($id != 0) ? '' : 'warning';
 
         $row = "<tr class='$rowType'>
           <td>
             <a title='Open' class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal$id\">$id</a>
           </td>
-          <td>$status</td>
-          <td>$amount</td>
-          <td>$fee</td>
-          <td>$customer</td>
-          <td>$senderName</td>
-          <td>$receiverName</td>
-          <td>$controlNumber</td>
+          <td>$p->family</td>
+          <td>$p->genre</td>
+          <td>$p->species</td>
+          <td>$p->collector</td>
+          <td>$p->validator</td>
+          <td>$p->address</td>
+          <td>$p->collectDate</td>
         </tr>";
 
         $table .= $row;

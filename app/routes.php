@@ -21,6 +21,11 @@ function call($controller, $action) {
       require_once('models/colector.php');
       $controller = new ColectoresController();
       break;
+
+    case 'pending':
+      require_once('models/pending.php');
+      $controller = new PendingController();
+      break;
   }
 
   $controller->{ $action }();
@@ -30,7 +35,8 @@ function call($controller, $action) {
 $controllers = array('pages' => ['home', 'error'],
                      'users' => ['index', 'show'],
                      'families' => ['index', 'show'],
-                     'colectores' => ['lista', 'detalle']
+                     'colectores' => ['lista', 'detalle'],
+                     'pending' => ['index', 'show']
   );
 
 if (array_key_exists($controller, $controllers)) {
