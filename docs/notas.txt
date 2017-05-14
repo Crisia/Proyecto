@@ -15,3 +15,7 @@ Crisia
 
 Gerardo
 	administrar familia genero especie
+
+
+para cargar la imagen:
+https://blueimp.github.io/jQuery-File-Upload/index.html

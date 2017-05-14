@@ -22,11 +22,6 @@ try
 {
   $report = new Report($wsRequest, $account, $pending);
 
-  $filterFamily = $wsRequest->getParam("filterFamily", "3");
-  $filteredType = $wsRequest->getParam("filteredType", "-1");
-  $filterBeginDate = $wsRequest->getParam("filterBeginDate", "");
-  $filterEndDate = $wsRequest->getParam("filterEndDate", "");
-  $filterMTCN = $wsRequest->getParam("filterMTCN", "");
   $filterUniqueId = $wsRequest->getParam("filterUniqueId", "");
 }
 catch (Exception $ex)
@@ -172,25 +167,32 @@ catch (Exception $ex)
                               </div>
                             </div>
                             <div class="form-group">
-                              <label>Ubicación</label>
-                              <input class="form-control input-sm <?=$disabled?>" type="text" id="controlNumber" name="controlNumber" value="<?=$controlNumber?>" minlength="8" maxlength="10" pattern="<?=Util::REGEX_NUMERIC?>" required>
+                              <label>Localización</label>
+                              <input class="form-control input-sm" type="text" id="newLocation" name="newLocation" value="<?=$p->location?>" required <?=$readonly?>>
                             </div>
                             <div class="form-group">
-                              <label>Localización</label>
-                              <input class="form-control input-sm" type="text" id="reason" name="reason" value="<?=$notes?>" pattern="<?=Util::REGEX_ALPHANIMERIC?>" required <?=$readonly?>>
+                              <label>Notas</label>
+                              <input class="form-control input-sm <?=$disabled?>" type="text" id="newNotes" name="newNotes" value="<?=$p->notes?>" required>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                              <?php if ($account->checkPermission('REPORT_TRANSACTION_SAVE')){ ?>
-                                <button type="submit" class="btn btn-danger <?=$disabled?>">Guardar Cambios</button>
+                              <?php if ($account->checkPermission('SAMPLE_SAVE')){ ?>
+                                <button type="submit" class="btn btn-success <?=$disabled?>">Guardar Cambios</button>
                               <?php }?>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                             </div>
                           </form>
                         </div>
-                        <!-- Tab Customer -->
+                        <!-- Tab view image -->
                         <div class="tab-pane fade" id="tab-customer<?=$id?>">
                           <br/>
+
+                          <div class="form-group">
+                            <label class="control-label">Cambiar Imágen</label>
+                            <input id="input-1" type="file" class="file">
+                          </div>
+
                           <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cargar imagen</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           </div>
                         </div>

@@ -56,7 +56,7 @@ if (strpos($page, "login.php") === false)
 
   	<!-- JQUERY JS -->
   	<script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
-  	  	
+
 </head>
 
 <body>

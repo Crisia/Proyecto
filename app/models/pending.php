@@ -11,8 +11,10 @@
     public $collector;
     public $validator;
     public $address;
+    public $location;
+    public $notes;
 
-    public function __construct($id, $family, $genre, $species, $familyId, $genreId, $speciesId, $collector, $validator, $address, $collectDate) {
+    public function __construct($id, $family, $genre, $species, $familyId, $genreId, $speciesId, $collector, $validator, $address, $collectDate, $location, $notes) {
       $this->id      = $id;
       $this->family = $family;
       $this->genre = $genre;
@@ -24,6 +26,8 @@
       $this->validator = $validator;
       $this->address = $address;
       $this->collectDate = $collectDate;
+      $this->location = $location;
+      $this->notes = $notes;
     }
 
     public static function all() {
@@ -33,7 +37,7 @@
 
       // we create a list of Post objects from the database results
       foreach($pending as $p) {
-        $list[] = new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto']);
+        $list[] = new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto'], $p['Localidad'], $p['nota']);
       }
 
       return $list;
@@ -45,6 +49,6 @@
       $id = intval($id);
       $p = $db->getData("pendingById('{id}')", array('id'=>$id), true);
 
-      return new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto']);
+      return new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto'], $p['Localidad'], $p['nota']);
     }
   }
