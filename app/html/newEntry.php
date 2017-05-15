@@ -63,8 +63,9 @@ function load_provincias()
 function load_cantones()
 {
 	startSpinner();
-	var id = $("#provincia").val();
-	$.get("/scripts/load-cantones.php", { id: id },
+  var id = document.getElementById("provincia");
+  var nombre = id.options[id.selectedIndex].text;
+	$.get("/scripts/load-cantones.php", { nombre: nombre },
 		function(result)
 		{
 			if(result == false)
@@ -73,6 +74,7 @@ function load_cantones()
 			}
 			else
 			{
+        alert(result);
 				$("#canton").attr("disabled",false);
 				document.getElementById("canton").options.length=1;
 				$('#canton').append(result);
@@ -85,8 +87,13 @@ function load_cantones()
 function load_distritos()
 {
     startSpinner();
-    var id = $("#canton").val();
-    $.get("/scripts/load-distritos.php", { id: id },
+    var id = document.getElementById("provincia");
+    var nombreP = id.options[id.selectedIndex].text;
+    var nombreC = document.getElementById("canton");
+    alert("hola");
+    alert(nombreC);
+    alert(nombreP);
+    $.get("/scripts/load-distritos.php", { nombreP: nombreP, nombreC: nombreC },
         function(result)
         {
             if(result == false)
@@ -169,6 +176,21 @@ function load_distritos()
                               <option value="1">Uno</option>
       		                  <option value="2">Dos</option>
       		                </select>
+                <select class="form-control input-sm" tabindex="1" name="genero" id="genero" required>
+                              <option value="">Genero</option>
+                              <option value="1">Uno</option>
+      		                  <option value="2">Dos</option>
+      		                </select>
+              <select class="form-control input-sm" tabindex="1" name="especie" id="especie" required>
+                              <option value="">Especie</option>
+                              <option value="1">Uno</option>
+      		                  <option value="2">Dos</option>
+      		                </select>
+              <select class="form-control input-sm" tabindex="1" name="colector" id="colector" required>
+                              <option value="">Colector</option>
+                              <option value="1">Uno</option>
+      		                  <option value="2">Dos</option>
+      		                </select>
       		                <input id="genero" name="genero" type="number" step="any" min="1" class="form-control input-sm" tabindex="2" autocomplete="off" placeholder="Género" required>
       		                <input id="especie" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Especie" name="especie" required>
       		                <input id="localizacion" class="form-control input-sm" type="text" tabindex="4" autocomplete="off" placeholder="Localización" name="localizacion" required>
@@ -178,15 +200,15 @@ function load_distritos()
 
       		                <!-- Provincia -->
       		                <select class="form-control input-sm" tabindex="8" id="provincia" name="provincia" required>
-      		                    <option value="">Provincia</option>
+      		                    <option value="0">Provincia</option>
       		                </select>                
       		                <!-- Canton -->
       		                <select class="form-control input-sm" tabindex="9" id="canton" name="canton" required>
-      		                    <option value="">Canton</option>
+      		                    <option value="0">Canton</option>
       		                </select>
       		                <!-- Distrito -->
       		                <select class="form-control input-sm" tabindex="10" name="distrito" id="distrito" required>
-      		                    <option value="">Distrito</option>
+      		                    <option value="0">Distrito</option>
       		                </select>
                             <button name="btnNewTransaction" type="submit" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block">Crear nueva muestra</button>
       	                </div>
