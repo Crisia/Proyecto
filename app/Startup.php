@@ -149,6 +149,15 @@ class Manager
     return $d;
   }
 
+  public function getRoles(){
+    $d = array();
+    $d[] = array('itemId' => 'admin', 'itemValue' => 'Administrador');
+    $d[] = array('itemId' => 'validador', 'itemValue' => 'Validador');
+    $d[] = array('itemId' => 'colector', 'itemValue' => 'Colector');
+
+    return $d;
+  }
+
   public function saveNewEntry($request)
   {
 
@@ -159,7 +168,7 @@ class Report
 {
   private $data;
 
-  function __construct($wsRequest, $account, $pending)
+  function __construct($wsRequest, $account, $pending = null)
   {
     $this->data = $pending;
   }
@@ -202,6 +211,49 @@ class Report
           <td>$p->validator</td>
           <td>$p->address</td>
           <td>$p->collectDate</td>
+        </tr>";
+
+        $table .= $row;
+      }
+    }else{
+      $table .= "<td colspan='10'>No Records!</td>";
+    }
+
+    $table .= "</tbody>";
+
+    return $table;
+  }
+
+  public function getUsersTable($users, $idUpdated, $userUpdated)
+  {
+    $table = "<thead>
+                 <tr>
+                  <th># de Usuario</th>
+                  <th>Usuario</th>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                </tr>
+              </thead>";
+
+    $table .= "<tbody>";
+
+    if(count($users)>0){
+      foreach ($users as $user){
+        $id = $user->id;
+
+        if ($id == $idUpdated) {
+          $user = $userUpdated;
+        }
+
+        $rowType = ($id != 0) ? '' : 'warning';
+
+        $row = "<tr class='$rowType'>
+          <td>
+            <a title='Open' class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal$id\">$id</a>
+          </td>
+          <td>$user->user</td>
+          <td>$user->name</td>
+          <td>$user->role</td>
         </tr>";
 
         $table .= $row;
