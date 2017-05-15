@@ -12,7 +12,7 @@
     public static function all() {
       $list = [];
       $db = Db::getInstance();
-      $families = $db->getData('familias()');
+      $families = $db->getData('getFamilias()');
 
       // we create a list of Post objects from the database results
       foreach($families as $family) {
@@ -29,5 +29,17 @@
       $family = $db->getData("familiaById('{id}')", array('id'=>$id), true);
 
       return new Family($family['Id'], $family['Nombre']);
+    }
+    public static function get_familiaGeneros($familia) {
+      $list = [];
+      $db = Db::getInstance();
+      $familiaGeneros = $db->getData('buscarFamilia_Genero('."$Familia".')');
+
+      // we create a list of Post objects from the database results
+      foreach($familiaGeneros as $genero) {
+        $list[] = new Family('Id', $genero['Nombre']);
+      }
+
+      return $list;
     }
   }
