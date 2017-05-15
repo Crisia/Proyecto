@@ -158,6 +158,14 @@ class Manager
     return $d;
   }
 
+  public function getStatus(){
+    $d = array();
+    $d[] = array('itemId' => '1', 'itemValue' => 'Activo');
+    $d[] = array('itemId' => '0', 'itemValue' => 'Desactivo');
+
+    return $d;
+  }
+
   public function saveNewEntry($request)
   {
 
@@ -254,6 +262,48 @@ class Report
           <td>$user->user</td>
           <td>$user->name</td>
           <td>$user->role</td>
+        </tr>";
+
+        $table .= $row;
+      }
+    }else{
+      $table .= "<td colspan='10'>No Records!</td>";
+    }
+
+    $table .= "</tbody>";
+
+    return $table;
+  }
+
+  public function getCollectorsTable($collectors, $idUpdated, $collectorUpdated)
+  {
+    $table = "<thead>
+                 <tr>
+                  <th># de Colector</th>
+                  <th>Nombre</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>";
+
+    $table .= "<tbody>";
+
+    if(count($collectors)>0){
+      foreach ($collectors as $collector){
+        $id = $collector->id;
+
+        if ($id == $idUpdated) {
+          $collector = $collectorUpdated;
+        }
+
+        $rowType = ($id != 0) ? '' : 'warning';
+        $status = $collector->active == 1 ? "Activo" : "Desactivo";
+
+        $row = "<tr class='$rowType'>
+          <td>
+            <a title='Open' class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#myModal$id\">$id</a>
+          </td>
+          <td>$collector->name</td>
+          <td>$status</td>
         </tr>";
 
         $table .= $row;

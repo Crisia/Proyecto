@@ -1,13 +1,11 @@
 WEB APP
 
-Listo:
-Login
-Consulta de muestra
-
 Gustavo
-	administrar usuarios
-	validar muestrar
-	administrar validardores colectores
+    [listo] login
+    [listo] consulta de muestra
+	[listo] administrar usuarios
+	[listo] validar muestrar
+	administrar validadores colectores
 
 Crisia
 	digitalizar muestra
