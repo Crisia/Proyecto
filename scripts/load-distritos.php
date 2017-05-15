@@ -2,16 +2,16 @@
 
 require_once ('../app/Startup.php');
 
-$id = $_REQUEST["id"];
+$nombreP = $_REQUEST["nombreP"];
+$nombreC = $_REQUEST["nombreC"];
 
 $db = DB::getInstance();
-$data = $db->getData("distritos('{id}')",array('id'=>$id));
+$data = $db->getData("distritos('".$nombreP."','".$nombreC."')");
 
 foreach($data as $d)
 {
-  $key = $d['Id'];
-  $value = $d['Nombre'];
-  echo "<option value=\"$key\">$value</option>";
+  $value = $d['nombre'];
+  echo "<option value=\"$value\">$value</option>";
 }
 
 ?>
