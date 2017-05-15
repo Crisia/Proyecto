@@ -164,7 +164,7 @@ class Report
     $this->data = $pending;
   }
 
-  public function getReportTable()
+  public function getReportTable($idUpdated)
   {
     $table = "<thead>
                  <tr>
@@ -184,6 +184,11 @@ class Report
     if(count($this->data)>0){
       foreach ($this->data as $p){
         $id = $p->id;
+
+        if ($id == $idUpdated) {
+          continue;
+        }
+
         $rowType = ($id != 0) ? '' : 'warning';
 
         $row = "<tr class='$rowType'>

@@ -51,4 +51,21 @@
 
       return new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto'], $p['Localidad'], $p['nota']);
     }
+
+    public static function validate($id, $newFamily, $newGenre, $newSpecies, $newLocation, $newNotes) {
+      $db = Db::getInstance();
+      // we make sure $id is an integer
+      $id = intval($id);
+      $params = array();
+      $params['id'] = $id;
+      $params['family'] = $newFamily;
+      $params['genre'] = $newGenre;
+      $params['species'] = $newSpecies;
+      $params['location'] = $newLocation;
+      $params['notes'] = $newNotes;
+
+      $p = $db->getData("validate('{id}', '{family}', '{genre}', '{species}', '{location}', '{notes}')", $params, true);
+
+      return new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto'], $p['Localidad'], $p['nota']);
+    }
   }

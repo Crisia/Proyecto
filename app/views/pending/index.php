@@ -20,9 +20,17 @@ catch (Exception $ex)
 
 try
 {
-  $report = new Report($wsRequest, $account, $pending);
+  $idUpdated = $wsRequest->getParam("id", 0);
+  if ($idUpdated) {
+    $newFamily = $wsRequest->getParam("newFamily", 0);
+    $newGenre = $wsRequest->getParam("newGenre", 0);
+    $newSpecies = $wsRequest->getParam("newSpecies", 0);
+    $newLocation = $wsRequest->getParam("newLocation", 0);
+    $newNotes = $wsRequest->getParam("newNotes", 0);
+    Pending::validate($idUpdated, $newFamily, $newGenre, $newSpecies, $newLocation, $newNotes);
+  }
 
-  $filterUniqueId = $wsRequest->getParam("filterUniqueId", "");
+  $report = new Report($wsRequest, $account, $pending);
 }
 catch (Exception $ex)
 {
@@ -59,7 +67,7 @@ catch (Exception $ex)
 
               <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
-                  <?php echo $report->getReportTable(); ?>
+                  <?php echo $report->getReportTable($idUpdated); ?>
                 </table>
               </div>
 
