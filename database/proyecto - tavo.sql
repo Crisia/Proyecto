@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50635
 File Encoding         : 65001
 
-Date: 2017-05-14 19:25:57
+Date: 2017-05-14 20:05:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -124,13 +124,15 @@ CREATE TABLE `colector` (
   `Nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Enabled` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of colector
 -- ----------------------------
 INSERT INTO `colector` VALUES ('1', 'Crisia Piedra Chaves', '');
-INSERT INTO `colector` VALUES ('2', 'Gustavo Granados', '');
+INSERT INTO `colector` VALUES ('2', 'Gustavo Granados', '\0');
+INSERT INTO `colector` VALUES ('3', 'Gerardo Rojas', '');
+INSERT INTO `colector` VALUES ('4', 'Nuevo Colector', '');
 
 -- ----------------------------
 -- Table structure for distrito
@@ -915,6 +917,48 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `cantones`(IN `pId` int)
 BEGIN
 
 	select * from Canton c where c.ProvinciaId = pId;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for colectores
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `colectores`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `colectores`()
+BEGIN
+
+	select * from colector;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for colector_validate
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `colector_validate`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `colector_validate`(IN pId INT, IN pName VARCHAR(100), IN pStatus tinyint)
+BEGIN
+
+	if (pId is null or pId = 0) then
+
+		insert into colector(Nombre,Enabled) values(pName, pStatus);
+		set pId = LAST_INSERT_ID();
+
+	else
+
+		update colector c set
+		c.Nombre = pName,
+		c.Enabled = pStatus
+		where c.Id = pId;
+
+	end if;
+
+	select * from colector c where c.Id = pId;
 
 END
 ;;
