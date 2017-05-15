@@ -1,5 +1,5 @@
 <?php
-  class FamiliesController {
+  class FamiliesController {    
     public function index() {
       // we store all the families in a variable
       $families = Family::all();
@@ -14,6 +14,11 @@
 
       // we use the given id to get the right user
       $family = Family::find($_REQUEST['id']);
-      require_once('app/views/families/show.php');
+      require_once('app/views/families/index.php');
+    }
+    public function get_familiaGeneros($familia) {
+      // we store all the families in a variable  
+      $familiaGeneros = Family::get_familiaGeneros($familia);                  
+      return "include('app/views/families/familias_generos.php')";
     }
   }
