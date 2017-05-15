@@ -5,7 +5,7 @@ Gustavo
     [listo] consulta de muestra
 	[listo] administrar usuarios
 	[listo] validar muestrar
-	administrar validadores colectores
+	[listo] administrar validadores colectores
 
 Crisia
 	digitalizar muestra
