@@ -21,12 +21,21 @@ try
   $report = new Report($wsRequest, $account);
 
   $idUpdated = $wsRequest->getParam("id", 0);
-  if ($idUpdated) {
+  $idNew = $wsRequest->getParam("idNew", 0);
+  if ($idUpdated || $idNew) {
     $newUser = $wsRequest->getParam("newUser", 0);
     $newPassword = $wsRequest->getParam("newPassword", 0);
     $newName = $wsRequest->getParam("newName", 0);
     $newRole = $wsRequest->getParam("newRole", 0);
-    $userUpdated = User::validate($idUpdated, $newUser, $newPassword, $newName, $newRole);
+    if ($idUpdated) {
+      $userUpdated = User::validate($idUpdated, $newUser, $newPassword, $newName, $newRole);
+    }
+    if ($idNew) {
+      $userUpdated = User::validate($idNew, $newUser, $newPassword, $newName, $newRole);
+      if ($userUpdated) {
+        $users[] = $userUpdated;
+      }
+    }
   }
 }
 catch (Exception $ex)
@@ -53,6 +62,7 @@ catch (Exception $ex)
           <div class="row">
             <div class="col-lg-2">
               <input type="submit" class="btn btn-success" value="Refrescar">
+              <a title='Open' class="btn btn-info" data-toggle="modal" data-target="#myModalNew">Crear Usuario</a>
             </div>
           </div>
           <br/>
@@ -85,6 +95,78 @@ catch (Exception $ex)
           <!-- END TABLE TRANSACTIONS -->
         </form>
 
+        <!-- MODAL for new users -->
+        <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Agregar nuevo usuario</h4>
+              </div>
+
+              <div class="modal-body">
+                <div class="panel-body">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-pills">
+                    <li class="active"><a href="#tab-processNew" data-toggle="tab" aria-expanded="true">Detalles</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <!-- Tab Re-Process -->
+                    <div class="tab-pane fade active in" id="tab-processNew">
+                      <br/>
+                      <form role="form" data-toggle="validator" method="post" id="myFormNew" name="myFormNew">
+                        <input type="hidden" id="idNew" name="idNew" value="New">
+
+                        <div class="form-group">
+
+                          <div class="form-group">
+                            <label>Usuario</label>
+                            <input class="form-control input-sm" type="text" id="newUser" name="newUser" value="<?=$user->user?>" required <?=$readonly?>>
+                          </div>
+                          <div class="form-group">
+                            <label>Clave</label>
+                            <input class="form-control input-sm <?=$disabled?>" type="password" id="newPassword" name="newPassword" value="<?=$user->pass?>" required>
+                          </div>
+                          <div class="form-group">
+                            <label>Nombre</label>
+                            <input class="form-control input-sm" type="text" id="newName" name="newName" value="<?=$user->name?>" required <?=$readonly?>>
+                          </div>
+
+                          <div class="form-group">
+                            <!-- roles -->
+                            <label>Rol</label>
+                            <select class="form-control input-sm <?=$disabled?>" id="newRole" name="newRole" required>
+                              <?php
+                              foreach ($roles as $r) {
+                                $itemId = $r['itemId'];
+                                $value = $r['itemValue'];
+                                echo "<option value='$itemId'>$value</option>";
+                              }
+                              ?>
+                            </select>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-success <?=$disabled?>">Crear Usuario</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- MODAL for new users -->
+
         <!-- MODAL -->
         <div>
           <?php
@@ -100,7 +182,7 @@ catch (Exception $ex)
                 <div class="modal-content">
 
                   <div class="modal-header <?=$headerType?>">
-                    <h4 class="modal-title" id="myModalLabel"><?=$transactionType?>Detalles de la Muestra</h4>
+                    <h4 class="modal-title" id="myModalLabel">Detalles del usuario</h4>
                   </div>
 
                   <div class="modal-body">
