@@ -3,6 +3,61 @@ var editores      = ['Familia','Genero','Especie']
 var edicionActual ='';
 var itemSelect ='xxxx-xxx';    // Lista seleccionable
 
+
+
+function cargarDatos_familiaGeneros(familia){    
+    document.getElementById("ddGenero").innerHTML="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if (respuesta.length>0){
+                var ddl = document.getElementById("ddGenero");
+                ddl.innerHTML = respuesta;
+            }
+        }
+    };    
+    var parametros="opcion=getFamiliaGeneros"+"&familia="+familia;
+    xmlhttp.open("POST", "../../scripts/gestion_familias.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+    //xmlhttp.open("GET", "../../scripts/gestion_familias.php?"+parametros, true);;
+    //xmlhttp.send();
+}
+function cargarDatos_familiaGeneroEspecies(familia,genero){    
+    document.getElementById("ddlEspecies").innerHTML="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if (respuesta.length>0){
+                var ddl = document.getElementById("ddlEspecies");
+                ddl.innerHTML = respuesta;
+            }
+        }
+    };    
+    var parametros="opcion=getFamiliaGeneroEspecies"+"&familia="+familia+"&genero="+genero;
+    xmlhttp.open("POST", "../../scripts/gestion_familias.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+
+function selectFamilia(familia){    
+    var txtFamiliaSel = document.getElementById("txtFamiliaSel");
+    txtFamiliaSel.innerHTML = familia;
+    cargarDatos_familiaGeneros(familia);    
+}
+function selectGenero(genero){
+    var familia = document.getElementById("txtFamiliaSel").innerHTML;
+    var txtGeneroSel = document.getElementById("txtGeneroSel");
+    txtGeneroSel.innerHTML = genero;
+    cargarDatos_familiaGeneroEspecies(familia,genero);
+}
+function selectEspecie(especie){
+    var txtEspecieSel = document.getElementById("txtEspecieSel");
+    txtEspecieSel.innerHTML = especie;
+}
+
 function cerrarAreaEdicion(){
     edicionActual ='';
     itemSelect ='';
@@ -103,3 +158,4 @@ function quitar_listCompleta(){
 
 
 cerrarAreaEdicion();
+//cargarDatos_familiaGeneros("Asteraceae");
