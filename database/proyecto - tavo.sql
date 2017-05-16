@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Localhost @ root
-Source Server Version : 50635
+Source Server         : localhost @ root
+Source Server Version : 50717
 Source Host           : localhost:3306
 Source Database       : proyecto
 
 Target Server Type    : MYSQL
-Target Server Version : 50635
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-05-14 20:05:34
+Date: 2017-05-15 19:35:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for canton
+-- Table structure for `canton`
 -- ----------------------------
 DROP TABLE IF EXISTS `canton`;
 CREATE TABLE `canton` (
@@ -116,7 +116,7 @@ INSERT INTO `canton` VALUES ('705', '7', 'Matina', '772.64', '39961');
 INSERT INTO `canton` VALUES ('706', '7', 'Guácimo', '576.48', '41082');
 
 -- ----------------------------
--- Table structure for colector
+-- Table structure for `colector`
 -- ----------------------------
 DROP TABLE IF EXISTS `colector`;
 CREATE TABLE `colector` (
@@ -130,12 +130,12 @@ CREATE TABLE `colector` (
 -- Records of colector
 -- ----------------------------
 INSERT INTO `colector` VALUES ('1', 'Crisia Piedra Chaves', '');
-INSERT INTO `colector` VALUES ('2', 'Gustavo Granados', '\0');
+INSERT INTO `colector` VALUES ('2', 'Gustavo Granados', '');
 INSERT INTO `colector` VALUES ('3', 'Gerardo Rojas', '');
 INSERT INTO `colector` VALUES ('4', 'Nuevo Colector', '');
 
 -- ----------------------------
--- Table structure for distrito
+-- Table structure for `distrito`
 -- ----------------------------
 DROP TABLE IF EXISTS `distrito`;
 CREATE TABLE `distrito` (
@@ -626,7 +626,7 @@ INSERT INTO `distrito` VALUES ('70604', '706', 'Río Jiménez');
 INSERT INTO `distrito` VALUES ('70605', '706', 'Duacari');
 
 -- ----------------------------
--- Table structure for especie
+-- Table structure for `especie`
 -- ----------------------------
 DROP TABLE IF EXISTS `especie`;
 CREATE TABLE `especie` (
@@ -647,7 +647,7 @@ INSERT INTO `especie` VALUES ('6', 'Scorzonera hispanica L');
 INSERT INTO `especie` VALUES ('7', 'Tragopogon porrifolius L');
 
 -- ----------------------------
--- Table structure for especieXgenero
+-- Table structure for `especieXgenero`
 -- ----------------------------
 DROP TABLE IF EXISTS `especieXgenero`;
 CREATE TABLE `especieXgenero` (
@@ -675,7 +675,7 @@ INSERT INTO `especieXgenero` VALUES ('6', '6', '4', 'Autoria', 'Sinonimias');
 INSERT INTO `especieXgenero` VALUES ('7', '7', '5', 'Autoria', 'Sinonimias');
 
 -- ----------------------------
--- Table structure for familia
+-- Table structure for `familia`
 -- ----------------------------
 DROP TABLE IF EXISTS `familia`;
 CREATE TABLE `familia` (
@@ -696,7 +696,45 @@ INSERT INTO `familia` VALUES ('5', 'Amaranthaceae', '');
 INSERT INTO `familia` VALUES ('6', 'Amaryllidaceae', '');
 
 -- ----------------------------
--- Table structure for familiaXgenero
+-- Table structure for `FamiliaEspecie`
+-- ----------------------------
+DROP TABLE IF EXISTS `FamiliaEspecie`;
+CREATE TABLE `FamiliaEspecie` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `FamiliaId` int(11) unsigned NOT NULL,
+  `EspecieId` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `familiaespecie_FamiliaId` (`FamiliaId`),
+  KEY `familiaespecie_EspecieId` (`EspecieId`),
+  CONSTRAINT `familiaespecie_EspecieId` FOREIGN KEY (`EspecieId`) REFERENCES `Especie` (`Id`),
+  CONSTRAINT `familiaespecie_FamiliaId` FOREIGN KEY (`FamiliaId`) REFERENCES `Familia` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of FamiliaEspecie
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `FamiliaGenero`
+-- ----------------------------
+DROP TABLE IF EXISTS `FamiliaGenero`;
+CREATE TABLE `FamiliaGenero` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `FamiliaId` int(11) unsigned NOT NULL,
+  `GeneroId` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `familiagenero_FamiliaId` (`FamiliaId`),
+  KEY `familiagenero_GeneroId` (`GeneroId`),
+  CONSTRAINT `familiagenero_FamiliaId` FOREIGN KEY (`FamiliaId`) REFERENCES `Familia` (`Id`),
+  CONSTRAINT `familiagenero_GeneroId` FOREIGN KEY (`GeneroId`) REFERENCES `Genero` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of FamiliaGenero
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `familiaXgenero`
 -- ----------------------------
 DROP TABLE IF EXISTS `familiaXgenero`;
 CREATE TABLE `familiaXgenero` (
@@ -720,7 +758,7 @@ INSERT INTO `familiaXgenero` VALUES ('4', '4', '1');
 INSERT INTO `familiaXgenero` VALUES ('5', '5', '5');
 
 -- ----------------------------
--- Table structure for fertilidad
+-- Table structure for `fertilidad`
 -- ----------------------------
 DROP TABLE IF EXISTS `fertilidad`;
 CREATE TABLE `fertilidad` (
@@ -735,7 +773,7 @@ CREATE TABLE `fertilidad` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fertilidadXmuestra
+-- Table structure for `fertilidadXmuestra`
 -- ----------------------------
 DROP TABLE IF EXISTS `fertilidadXmuestra`;
 CREATE TABLE `fertilidadXmuestra` (
@@ -752,7 +790,38 @@ CREATE TABLE `fertilidadXmuestra` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ficha_historial
+-- Table structure for `Ficha`
+-- ----------------------------
+DROP TABLE IF EXISTS `Ficha`;
+CREATE TABLE `Ficha` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ProvinciaId` int(11) unsigned NOT NULL,
+  `CantonId` int(11) unsigned NOT NULL,
+  `DistritoId` int(11) unsigned NOT NULL,
+  `Localidad` varchar(126) COLLATE utf8_unicode_ci NOT NULL,
+  `Latitud` int(11) NOT NULL,
+  `Longitud` int(11) NOT NULL,
+  `Altitud` int(11) NOT NULL,
+  `DeterminadorId` int(11) unsigned NOT NULL,
+  `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `FechaColecto` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  KEY `ficha_provinciaId` (`ProvinciaId`),
+  KEY `ficha_cantonId` (`CantonId`),
+  KEY `ficha_distritoId` (`DistritoId`),
+  KEY `ficha_detId` (`DeterminadorId`),
+  CONSTRAINT `ficha_cantonId` FOREIGN KEY (`CantonId`) REFERENCES `Canton` (`Id`),
+  CONSTRAINT `ficha_detId` FOREIGN KEY (`DeterminadorId`) REFERENCES `Usuario` (`Id`),
+  CONSTRAINT `ficha_distritoId` FOREIGN KEY (`DistritoId`) REFERENCES `Distrito` (`Id`),
+  CONSTRAINT `ficha_provinciaId` FOREIGN KEY (`ProvinciaId`) REFERENCES `Provincia` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of Ficha
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ficha_historial`
 -- ----------------------------
 DROP TABLE IF EXISTS `ficha_historial`;
 CREATE TABLE `ficha_historial` (
@@ -775,7 +844,7 @@ CREATE TABLE `ficha_historial` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for genero
+-- Table structure for `genero`
 -- ----------------------------
 DROP TABLE IF EXISTS `genero`;
 CREATE TABLE `genero` (
@@ -794,7 +863,7 @@ INSERT INTO `genero` VALUES ('4', 'Scorzonera');
 INSERT INTO `genero` VALUES ('5', 'Tragopogon');
 
 -- ----------------------------
--- Table structure for Imagen
+-- Table structure for `Imagen`
 -- ----------------------------
 DROP TABLE IF EXISTS `Imagen`;
 CREATE TABLE `Imagen` (
@@ -812,7 +881,7 @@ CREATE TABLE `Imagen` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for muestra
+-- Table structure for `muestra`
 -- ----------------------------
 DROP TABLE IF EXISTS `muestra`;
 CREATE TABLE `muestra` (
@@ -847,7 +916,7 @@ INSERT INTO `muestra` VALUES ('4', '30801', '1', '1', '5', 'localidad de prueba'
 INSERT INTO `muestra` VALUES ('5', '30802', '2', '2', '7', 'probando nuevo campo', '12', '12', '12', '2017-05-14 13:51:23', '2017-05-14 13:51:23', 'otra nota para el ultimo registro', '1');
 
 -- ----------------------------
--- Table structure for provincia
+-- Table structure for `provincia`
 -- ----------------------------
 DROP TABLE IF EXISTS `provincia`;
 CREATE TABLE `provincia` (
@@ -868,7 +937,7 @@ INSERT INTO `provincia` VALUES ('6', 'Puntarenas');
 INSERT INTO `provincia` VALUES ('7', 'Limón');
 
 -- ----------------------------
--- Table structure for usuario
+-- Table structure for `usuario`
 -- ----------------------------
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
@@ -892,7 +961,7 @@ INSERT INTO `usuario` VALUES ('6', 'santiago@gmail.com', 'asdfasdfasf', 'Santi G
 INSERT INTO `usuario` VALUES ('7', 'test@test.com', 'dfasdf', 'Test Test', 'validador');
 
 -- ----------------------------
--- Table structure for validador
+-- Table structure for `validador`
 -- ----------------------------
 DROP TABLE IF EXISTS `validador`;
 CREATE TABLE `validador` (
@@ -909,7 +978,71 @@ INSERT INTO `validador` VALUES ('1', 'Yulian Ulloa Porras', '');
 INSERT INTO `validador` VALUES ('2', 'Paola Solis', '');
 
 -- ----------------------------
--- Procedure structure for cantones
+-- Procedure structure for `buscarFamilia`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `buscarFamilia`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia`()
+begin
+	select Nombre from familia ;
+	
+end
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `buscarFamilia_Genero`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `buscarFamilia_Genero`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero`(nombreFamilia varchar(126))
+begin
+	select ge.Nombre from genero ge
+	inner join familiaXgenero fxg on fxg.IdGenero = ge.Id 
+	inner join familia fa on fa.Id = fxg.IdFamilia
+	where  fa.Nombre = nombreFamilia;	
+end
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `buscarFamilia_Genero_Especie`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `buscarFamilia_Genero_Especie`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero_Especie`(nombreFamilia varchar(126),nombreGenero varchar(126))
+begin
+	select es.Nombre from especie es 
+	inner join especieXgenero exg on exg.IdEspecie=es.Id
+	inner join familiaXgenero fxg on fxg.Id=exg.IdFamiliaXgenero
+	inner join familia fa on fa.Id= fxg.IdFamilia
+	inner join genero ge on ge.Id = fxg.IdGenero
+	where ge.Nombre=nombreGenero and fa.Nombre=nombreFamilia;	
+end
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `buscarFamilia_Genero_Especie_Codigo`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `buscarFamilia_Genero_Especie_Codigo`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero_Especie_Codigo`(nombreFamilia varchar(126),nombreGenero varchar(126),nombreEspecie varchar(126))
+begin
+	select mu.codigo from muestra mu
+	inner join especieXgenero exg on exg.Id=mu.IdEspecieXgenero
+	inner join familiaXgenero fxg on fxg.Id= exg.IdFamiliaXgenero
+	inner join familia fa on fa.Id= fxg.IdFamilia
+	inner join especie es on es.Id=exg.IdEspecie
+	inner join genero ge on ge.Id = fxg.IdGenero
+	where fa.Nombre=nombreFamilia  and ge.Nombre=nombreGenero  and es.Nombre=nombreEspecie;
+
+end
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `cantones`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cantones`;
 DELIMITER ;;
@@ -923,7 +1056,21 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for colectores
+-- Procedure structure for `colectorById`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `colectorById`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `colectorById`(IN pId INT)
+BEGIN
+
+	select * from colector c where c.Id = pId;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `colectores`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `colectores`;
 DELIMITER ;;
@@ -937,7 +1084,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for colector_validate
+-- Procedure structure for `colector_validate`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `colector_validate`;
 DELIMITER ;;
@@ -965,7 +1112,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for distritos
+-- Procedure structure for `distritos`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `distritos`;
 DELIMITER ;;
@@ -979,7 +1126,35 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for families
+-- Procedure structure for `familiaById`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `familiaById`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `familiaById`(IN `pId` int)
+BEGIN
+
+	select * from Familia f where f.Id = pId;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `familias`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `familias`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `familias`()
+BEGIN
+
+	select * from Familia;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `families`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `families`;
 DELIMITER ;;
@@ -993,7 +1168,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for genres
+-- Procedure structure for `genres`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `genres`;
 DELIMITER ;;
@@ -1007,7 +1182,21 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for pending
+-- Procedure structure for `getFamilias`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `getFamilias`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getFamilias`()
+BEGIN
+
+	select * from Familia;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `pending`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `pending`;
 DELIMITER ;;
@@ -1037,7 +1226,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for provincias
+-- Procedure structure for `provincias`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `provincias`;
 DELIMITER ;;
@@ -1051,7 +1240,36 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for species
+-- Procedure structure for `search`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `search`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `search`()
+BEGIN
+
+	select m.*, 
+	f.Nombre Familia,g.Nombre Genero, e.Nombre Especie,
+	f.Id IdFamilia,g.Id IdGenero, e.Id IdEspecie,
+	c.Nombre Colector, v.Nombre Validador, concat(p.Nombre,", ",ca.Nombre,", ",d.Nombre) Direccion
+	from muestra m
+	inner join colector c on c.Id = m.IdColector
+	inner join validador v on v.Id = m.IdValidador
+	inner join distrito d on d.Id = m.IdDistrito
+	inner join canton ca on ca.Id = d.CantonId
+	inner join provincia p on p.Id = ca.ProvinciaId
+	inner join especieXgenero eg on eg.Id = m.IdEspecieXgenero
+	inner join especie e on e.Id = eg.IdEspecie
+	inner join familiaXgenero fg on fg.Id = eg.IdFamiliaXgenero
+	inner join genero g on g.Id = fg.IdGenero
+	inner join familia f on f.Id = fg.IdFamilia
+	;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `species`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `species`;
 DELIMITER ;;
@@ -1065,7 +1283,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for user_validate
+-- Procedure structure for `user_validate`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `user_validate`;
 DELIMITER ;;
@@ -1095,7 +1313,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for usuario
+-- Procedure structure for `usuario`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuario`;
 DELIMITER ;;
@@ -1109,7 +1327,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for usuarioById
+-- Procedure structure for `usuarioById`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuarioById`;
 DELIMITER ;;
@@ -1123,7 +1341,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for usuarios
+-- Procedure structure for `usuarios`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuarios`;
 DELIMITER ;;
@@ -1137,7 +1355,7 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for validate
+-- Procedure structure for `validate`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `validate`;
 DELIMITER ;;
