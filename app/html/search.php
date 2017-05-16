@@ -1,6 +1,7 @@
 <?php 
 //all script need to have this include except login.
-include("header.php"); 
+include("header.php");
+require_once 'app/models/pending.php';
 
 $wsRequest = new WSRequest($_REQUEST);
 
@@ -10,6 +11,8 @@ try
 	$account = $_SESSION['account'];
 	$manager = new Manager($account);
 	$families = $manager->getFamilies();
+	$genres = $manager->getGenres();
+	$species = $manager->getSpecies();
 }
 catch (Exception $ex)
 {
@@ -20,8 +23,9 @@ catch (Exception $ex)
 
 try
 {
-  $report = new Report($wsRequest, $account);
-  $transactions = $report->getTransactions();
+  $report = new Report($wsRequest, $account, Pending::all());
+  $db = DB::getInstance();
+  $transactions = $db->getData("search()");
   
   $filterFamily = $wsRequest->getParam("filterFamily", "3");
   $filteredType = $wsRequest->getParam("filteredType", "-1");
@@ -56,7 +60,7 @@ catch (Exception $ex)
                 	<div class="col-lg-2">
 	                	<label>Familia</label>
 	                  <select name="filterFamily" id="filteredFamily" class="input-sm form-control">
-	            				<option value="-1" <?php echo $filterFamily=='-1'?'selected':'';?>>All</option>
+	            				<option value="-1" <?php echo $filterFamily=='-1'?'selected':'';?>>Todos</option>
 	            				<?php 
 	            				 foreach ($families as $family) {
 	            				   $id = $family['itemId'];
@@ -73,17 +77,35 @@ catch (Exception $ex)
                 	<div class="col-lg-2">
 	                	<label>Género</label>
 	                  <select name="filteredType" id="filteredType" class="input-sm form-control">
-	            				<option value="-1" <?php echo $filteredType=='-1'?'selected':'';?>>All</option>
-                        <option value="1" <?=($filteredType==1)?'selected':''?>>Uno</option>
-    		                <option value="2" <?=($filteredType==2)?'selected':''?>>Dos</option>
+	            				<option value="-1" <?php echo $filteredType=='-1'?'selected':'';?>>Todos</option>
+                                  <?php
+                                  foreach ($genres as $g) {
+                                      $id = $g['itemId'];
+                                      $value = $g['itemValue'];
+                                      if($filterFamily == $id){
+                                          echo "<option value='$id' selected>$value</option>";
+                                      }else{
+                                          echo "<option value='$id'>$value</option>";
+                                      }
+                                  }
+                                  ?>
 	            			</select>
                 	</div>
                      <div class="col-lg-2">
                          <label>Especie</label>
                          <select name="filteredType" id="filteredType" class="input-sm form-control">
-                             <option value="-1" <?php echo $filteredType=='-1'?'selected':'';?>>All</option>
-                             <option value="1" <?=($filteredType==1)?'selected':''?>>Uno</option>
-                             <option value="2" <?=($filteredType==2)?'selected':''?>>Dos</option>
+                             <option value="-1" <?php echo $filteredType=='-1'?'selected':'';?>>Todos</option>
+                             <?php
+                             foreach ($species as $family) {
+                                 $id = $family['itemId'];
+                                 $value = $family['itemValue'];
+                                 if($filterFamily == $id){
+                                     echo "<option value='$id' selected>$value</option>";
+                                 }else{
+                                     echo "<option value='$id'>$value</option>";
+                                 }
+                             }
+                             ?>
                          </select>
                      </div>
                 	<div class="col-lg-4" id="dateRange">
@@ -110,7 +132,7 @@ catch (Exception $ex)
   
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover">
-                        <?php echo $report->getReportTable(); ?>
+                        <?php echo $report->getReportTable($idUpdated); ?>
                       </table>
                     </div>
                     
@@ -136,7 +158,7 @@ catch (Exception $ex)
               <?php
                 foreach ($transactions as $transaction)
                 {
-  								$id = $transaction['id'];
+  								$id = $transaction['Id'];
   								$statusId = $transaction['TransactionStatus_Id'];
   								$transactionTypeId = $transaction['TransactionType_Id'];
   								$transactionType = $transaction['TransactionType'];
