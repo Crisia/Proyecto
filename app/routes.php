@@ -32,11 +32,11 @@ function call($controller, $action) {
 }
 
 // we're adding an entry for the new controller and its actions
-$controllers = array('pages' => ['home', 'error'],
-                     'users' => ['index', 'show'],
-                     'families' => ['index', 'show'],
-                     'colectores' => ['lista', 'detalle'],
-                     'pending' => ['index', 'show']
+$controllers = array('pages' => array('home', 'error'),
+                     'users' => array('index', 'show'),
+                     'families' => array('index', 'show'),
+                     'colectores' => array('lista', 'detalle'),
+                     'pending' => array('index', 'show')
   );
 
 if (array_key_exists($controller, $controllers)) {

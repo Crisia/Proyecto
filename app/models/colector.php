@@ -12,7 +12,7 @@
     }
 
     public static function all() {
-      $list = [];
+      $list = array();
       $db = Db::getInstance();
       $colectores = $db->getData('colectores()');
 

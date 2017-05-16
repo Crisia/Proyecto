@@ -10,7 +10,7 @@
     }
 
     public static function all() {
-      $list = [];
+      $list = array();
       $db = Db::getInstance();
       $families = $db->getData('getFamilias()');
 
@@ -31,7 +31,7 @@
       return new Family($family['Id'], $family['Nombre']);
     }
     public static function get_familiaGeneros($familia) {
-      $list = [];
+      $list = array();
       $db = Db::getInstance();
       $familiaGeneros = $db->getData('buscarFamilia_Genero('."$Familia".')');
 

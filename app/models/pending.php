@@ -31,7 +31,7 @@
     }
 
     public static function all() {
-      $list = [];
+      $list = array();
       $db = Db::getInstance();
       $pending = $db->getData('pending()');
 

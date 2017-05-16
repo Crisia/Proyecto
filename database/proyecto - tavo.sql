@@ -804,7 +804,7 @@ CREATE TABLE `Ficha` (
   `Altitud` int(11) NOT NULL,
   `DeterminadorId` int(11) unsigned NOT NULL,
   `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `FechaColecto` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `FechaColecto` timestamp DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`Id`),
   KEY `ficha_provinciaId` (`ProvinciaId`),
   KEY `ficha_cantonId` (`CantonId`),
@@ -835,7 +835,7 @@ CREATE TABLE `ficha_historial` (
   `Altitud` int(11) NOT NULL,
   `DeterminadorId` int(11) NOT NULL,
   `FechaIngreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `FechaColecto` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FechaColecto` timestamp DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -894,7 +894,7 @@ CREATE TABLE `muestra` (
   `Latitud` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `Longitud` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `Altitud` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `FechaIngreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FechaIngreso` timestamp DEFAULT '0000-00-00 00:00:00',
   `FechaColecto` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nota` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `Pendiente` tinyint(1) NOT NULL DEFAULT '1',
@@ -982,7 +982,7 @@ INSERT INTO `validador` VALUES ('2', 'Paola Solis', '');
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `buscarFamilia`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia`()
+CREATE PROCEDURE `buscarFamilia`()
 begin
 	select Nombre from familia ;
 	
@@ -995,7 +995,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `buscarFamilia_Genero`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero`(nombreFamilia varchar(126))
+CREATE PROCEDURE `buscarFamilia_Genero`(nombreFamilia varchar(126))
 begin
 	select ge.Nombre from genero ge
 	inner join familiaXgenero fxg on fxg.IdGenero = ge.Id 
@@ -1010,7 +1010,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `buscarFamilia_Genero_Especie`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero_Especie`(nombreFamilia varchar(126),nombreGenero varchar(126))
+CREATE PROCEDURE `buscarFamilia_Genero_Especie`(nombreFamilia varchar(126),nombreGenero varchar(126))
 begin
 	select es.Nombre from especie es 
 	inner join especieXgenero exg on exg.IdEspecie=es.Id
@@ -1027,7 +1027,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `buscarFamilia_Genero_Especie_Codigo`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarFamilia_Genero_Especie_Codigo`(nombreFamilia varchar(126),nombreGenero varchar(126),nombreEspecie varchar(126))
+CREATE PROCEDURE `buscarFamilia_Genero_Especie_Codigo`(nombreFamilia varchar(126),nombreGenero varchar(126),nombreEspecie varchar(126))
 begin
 	select mu.codigo from muestra mu
 	inner join especieXgenero exg on exg.Id=mu.IdEspecieXgenero
@@ -1046,7 +1046,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cantones`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cantones`(IN `pId` int)
+CREATE PROCEDURE `cantones`(IN `pId` int)
 BEGIN
 
 	select * from Canton c where c.ProvinciaId = pId;
@@ -1060,7 +1060,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `colectorById`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `colectorById`(IN pId INT)
+CREATE PROCEDURE `colectorById`(IN pId INT)
 BEGIN
 
 	select * from colector c where c.Id = pId;
@@ -1074,7 +1074,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `colectores`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `colectores`()
+CREATE PROCEDURE `colectores`()
 BEGIN
 
 	select * from colector;
@@ -1088,7 +1088,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `colector_validate`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `colector_validate`(IN pId INT, IN pName VARCHAR(100), IN pStatus tinyint)
+CREATE PROCEDURE `colector_validate`(IN pId INT, IN pName VARCHAR(100), IN pStatus tinyint)
 BEGIN
 
 	if (pId is null or pId = 0) then
@@ -1116,7 +1116,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `distritos`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `distritos`(IN `pId` int)
+CREATE PROCEDURE `distritos`(IN `pId` int)
 BEGIN
 
 	select * from Distrito d where d.CantonId = pId;
@@ -1130,7 +1130,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `familiaById`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `familiaById`(IN `pId` int)
+CREATE PROCEDURE `familiaById`(IN `pId` int)
 BEGIN
 
 	select * from Familia f where f.Id = pId;
@@ -1144,7 +1144,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `familias`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `familias`()
+CREATE PROCEDURE `familias`()
 BEGIN
 
 	select * from Familia;
@@ -1158,7 +1158,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `families`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `families`()
+CREATE PROCEDURE `families`()
 BEGIN
 
 	select * from familia;
@@ -1172,7 +1172,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `genres`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `genres`()
+CREATE PROCEDURE `genres`()
 BEGIN
 
 	select * from genero;
@@ -1186,7 +1186,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `getFamilias`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getFamilias`()
+CREATE PROCEDURE `getFamilias`()
 BEGIN
 
 	select * from Familia;
@@ -1200,7 +1200,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `pending`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pending`()
+CREATE PROCEDURE `pending`()
 BEGIN
 
 	select m.*, 
@@ -1230,7 +1230,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `provincias`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `provincias`()
+CREATE PROCEDURE `provincias`()
 BEGIN
 
 	select * from Provincia;
@@ -1244,7 +1244,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `search`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `search`()
+CREATE PROCEDURE `search`()
 BEGIN
 
 	select m.*, 
@@ -1273,7 +1273,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `species`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `species`()
+CREATE PROCEDURE `species`()
 BEGIN
 
 	select * from especie;
@@ -1287,7 +1287,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `user_validate`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_validate`(IN pId INT, IN pUser VARCHAR(100), IN pPass VARCHAR(100) , IN pName VARCHAR(100), IN pRole VARCHAR(100))
+CREATE PROCEDURE `user_validate`(IN pId INT, IN pUser VARCHAR(100), IN pPass VARCHAR(100) , IN pName VARCHAR(100), IN pRole VARCHAR(100))
 BEGIN
 
 	if (pId is null or pId = 0) then
@@ -1317,7 +1317,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuario`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario`(IN `pUser` varchar(32))
+CREATE PROCEDURE `usuario`(IN `pUser` varchar(32))
 BEGIN
 
 	select * from Usuario u where u.Usuario = pUser;
@@ -1331,7 +1331,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuarioById`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarioById`(IN `pId` int)
+CREATE PROCEDURE `usuarioById`(IN `pId` int)
 BEGIN
 
 	select * from Usuario u where u.Id = pId;
@@ -1345,7 +1345,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `usuarios`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarios`()
+CREATE PROCEDURE `usuarios`()
 BEGIN
 	
 	select * from Usuario;
@@ -1359,7 +1359,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `validate`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `validate`(IN pId INT, IN pFamilyId INT, IN pGenreId INT, IN pSpeciesId INT, IN pLocation VARCHAR(100), IN pNotes VARCHAR(100))
+CREATE PROCEDURE `validate`(IN pId INT, IN pFamilyId INT, IN pGenreId INT, IN pSpeciesId INT, IN pLocation VARCHAR(100), IN pNotes VARCHAR(100))
 BEGIN
 
 	declare vId int;

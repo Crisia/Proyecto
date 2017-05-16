@@ -16,7 +16,7 @@
     }
 
     public static function all() {
-      $list = [];
+      $list = array();
       $db = Db::getInstance();
       $users = $db->getData('usuarios()');
 
