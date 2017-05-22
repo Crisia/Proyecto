@@ -36,5 +36,50 @@ if (isset($_REQUEST['opcion'])){
                 echo $salida;                
             }
             break;        
+        case 'getList_Familia':
+            {
+                $db = DB::getInstance();
+                $data = $db->getData("buscarFamilia()");
+                $salida = "";
+                foreach($data as $d)
+                {                    
+                    $value = $d['Nombre'];
+                    $salida = $salida."<option>".$value."</option>";                
+                }
+                echo $salida;                
+            }
+            break;        
+        case 'getList_FamiliaGenero':
+            //echo "estoy aqui3";
+            if (isset($_REQUEST['familia'])){
+                $familia = $_REQUEST['familia'];
+                //echo $familia;
+                $db = DB::getInstance();
+                $data = $db->getData("buscarFamilia_Genero('".$familia."')");
+                $salida = "";
+                foreach($data as $d)
+                {                    
+                    $value = $d['Nombre'];                    
+                    $salida = $salida."<option>".$value."</option>"; 
+                }
+                echo $salida;                
+            }
+            break;        
+        case 'getList_FamiliaGeneroEspecie':
+            if ( (isset($_REQUEST['familia'])) && (isset($_REQUEST['genero'])) ) {
+                $familia = $_REQUEST['familia'];
+                $genero = $_REQUEST['genero'];
+                $db = DB::getInstance();
+                $data = $db->getData("buscarFamilia_Genero_Especie('".$familia."','".$genero."')");
+                $salida = "";
+                foreach($data as $d)
+                {                    
+                    $value = $d['Nombre'];                    
+                    $salida = $salida."<option>".$value."</option>"; 
+                }
+                echo $salida;                
+            }
+            break;        
+        
     }
 }
