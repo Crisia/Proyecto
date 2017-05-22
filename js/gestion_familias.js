@@ -1,7 +1,10 @@
 var clasesBoton   =['btn btn-primary glyphicon glyphicon-edit','btn btn-default glyphicon glyphicon-edit'];
 var editores      = ['Familia','Genero','Especie']
 var edicionActual ='';
-var itemSelect ='xxxx-xxx';    // Lista seleccionable
+//var itemSelect ='xxxx-xxx';    // Lista seleccionable
+var Sfamilia = "";
+var Sgenero = "";
+var Sespecie = "";
 
 
 
@@ -41,26 +44,60 @@ function cargarDatos_familiaGeneroEspecies(familia,genero){
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(parametros);
 }
+function despl_ListSeleccionable(indEditor){
+    document.getElementById("selectList").innerHTML="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;
+            if (respuesta.length>0){
+                document.getElementById("selectList").innerHTML = respuesta;
+            }
+        }
+    };
+    parametros="";
+    switch (indEditor) {
+    case "0":
+        parametros = "opcion=getList_Familia";
+        break; 
+    case "1":
+        parametros = "opcion=getList_FamiliaGenero"+"&familia="+familia;
+        break;
+    case "2":
+        parametros = "opcion=getList_FamiliaGeneroEspecie"+"&familia="+familia+"&genero="+genero;
+        break;
+    default:
+        parametros = "";            
+        break;
+    }
+    xmlhttp.open("POST", "../../scripts/gestion_familias.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+ 
+}
 
-function selectFamilia(familia){    
+function selectFamilia(familia){ 
+    Sfamilia = familia;   
     var txtFamiliaSel = document.getElementById("txtFamiliaSel");
     txtFamiliaSel.innerHTML = familia;
     cargarDatos_familiaGeneros(familia);    
 }
 function selectGenero(genero){
+    Sgenero = genero;
     var familia = document.getElementById("txtFamiliaSel").innerHTML;
     var txtGeneroSel = document.getElementById("txtGeneroSel");
     txtGeneroSel.innerHTML = genero;
     cargarDatos_familiaGeneroEspecies(familia,genero);
 }
 function selectEspecie(especie){
+    Sespecie = especie;
     var txtEspecieSel = document.getElementById("txtEspecieSel");
     txtEspecieSel.innerHTML = especie;
 }
 
 function cerrarAreaEdicion(){
     edicionActual ='';
-    itemSelect ='';
+    //itemSelect ='';
     document.getElementById("areaEdicion").style.display ="none";
     document.getElementById("area_selectList").style.display ="none";
     document.getElementById("area_listCompleta").style.display ="none";
@@ -79,19 +116,35 @@ function deshabilitar_BnEdicion(valor,clase){
     var editarEspecies = document.getElementById("editarEspecies");
     editarEspecies.setAttribute('class',clasesBoton[clase]);
     editarEspecies.disabled= valor;
+    document.getElementById("btn_familia").disabled =valor;
+    document.getElementById("btn_genero").disabled =valor;
+    document.getElementById("btn_especie").disabled =valor;
 }
 
-function desp_AreaEdicion(indiceEditor,idObject){     
-    deshabilitar_BnEdicion(true,1);
-    edicionActual=editores[indiceEditor];
+function desp_AreaEdicion(indEditor,idObject){     
+    var puede = true;
+    alert(indEditor+" " +Sfamilia+" " +Sgenero+" " + puede);    
+    if (indEditor == "1")
+        puede = (Sfamilia != "");
+    else{ 
+        if (indEditor == "2")
+            puede = (Sfamilia != "") && (Sgenero != "");
+    }
+    alert(indEditor+" " +Sfamilia+" " +Sgenero+" " + puede);
+    if (puede) {
+        deshabilitar_BnEdicion(true,1);
+        edicionActual=editores[indEditor];
 
-    var bn = document.getElementById(idObject);
-    bn.setAttribute('class',clasesBoton[0]);
- 
-    document.getElementById("areaEdicion").style.display ="block";
-    document.getElementById("name_edicion").innerText = "Área de Edición de "+edicionActual+'s';    
-    document.getElementById("lbSelectList").innerText = "Lista de "+edicionActual+'s '+'Seleccionables';     
-    document.getElementById("area_selectList").style.display ="block";
+        var bn = document.getElementById(idObject);
+        bn.setAttribute('class',clasesBoton[0]);
+    
+        document.getElementById("areaEdicion").style.display ="block";
+        document.getElementById("name_edicion").innerText = "Área de Edición de "+edicionActual+'s';    
+        document.getElementById("lbSelectList").innerText = "Lista de "+edicionActual+'s '+'Seleccionables';     
+        document.getElementById("area_selectList").style.display ="block";    
+
+        despl_ListSeleccionable(indEditor);
+    }
 }
  
 function desp_SAreaNuevo(){
@@ -104,11 +157,11 @@ function desp_SAreaNuevo(){
 function desp_SAreaEditar(){     
     document.getElementById("area_nuevo_edit").style.display ="block";
     document.getElementById("lbNuevo_edit").innerText = 'Editar ' + edicionActual;
-    document.getElementById("lblItemSelect").innerText = 'Valor actual: ' + itemSelect;
+    document.getElementById("lblItemSelect").innerText = 'Valor actual: ' + itemSelect();
 }
 function desp_SAreaEditarEsp(){     
     //document.getElementById("area_nuevo_edit_esp").style.display =block";
-    //document.getElementById("lbNuevo_edit_Esp").innerText = 'Editar ' + editores[0];
+    //document.getElementBy-Id("lbNuevo_edit_Esp").innerText = 'Editar ' + editores[0];
     //document.getElementById("lblItemSelect_Esp").innerText = 'Valor actual: ' + itemSelect;
 }
 
@@ -155,7 +208,9 @@ function agregar_listCompleta(){
 function quitar_listCompleta(){     
     alert('Pendiente - quietar de la lista');
 }
-
+function itemSelect(){
+    return familia + " " + familia + " " + genero + " " +especie;
+}
 
 cerrarAreaEdicion();
 //cargarDatos_familiaGeneros("Asteraceae");
