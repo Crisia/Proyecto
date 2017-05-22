@@ -16,7 +16,7 @@
 							<div class ="col-lg-4">
 								<div class="form-group input-group">
 									<div class="input-group-btn bs-dropdown-to-select-group">
-										<button type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
+										<button id="btn_familia" type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
 											<span id="txtFamiliaSel" data-bind="txtFamiliaSel" onchange= "desplegarDdlGeneros()">Seleccione una Familia</span>
 											<input type="hidden" name="familia_path" data-bind="txtFamiliaSelValue" value="--">
 											<span class="caret"></span>												
@@ -36,7 +36,7 @@
 							<div class ="col-lg-4">
 								<div class="form-group input-group">
 									<div class="input-group-btn bs-dropdown-to-select-group">
-										<button type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
+										<button id="btn_genero" type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
 											<span id="txtGeneroSel" data-bind="txtGeneroSel">Seleccione un Genero</span>
 											<input type="hidden" name="Genero_path" data-bind="txtGeneroSelValue" value="--">
 											<span class="caret"></span>												
@@ -52,7 +52,7 @@
 							<div class ="col-lg-4">
 								<div class="form-group input-group">
 									<div class="input-group-btn  bs-dropdown-to-select-group">
-										<button type="button" class=" btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
+										<button  id="btn_especie" type="button" class=" btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown" tabindex="-1">
 											<span id="txtEspecieSel" data-bind="txtEspecieSel">Seleccione una Especie</span>
 											<input type="hidden" name="Especie_path" data-bind="txtEspecieSelValue" value="Customer">
 											<span class="caret"></span>												
@@ -86,6 +86,7 @@
 														<label id='lbSelectList'>Lista de Familias Seleccionables</label>
 														<input id="filtro_selectList" class="form-control" placeholder ="Filtro">
 														<select id="selectList" class="form-control" size=9>
+																<!--																	
 																<option>Familia 01</option>
 																<option>Familia 02</option>
 																<option>Familia 03</option>
@@ -95,7 +96,8 @@
 																<option>Familia 07</option>
 																<option>Familia 08</option>
 																<option>Familia 09</option>
-																<option>Familia 10</option>													
+																<option>Familia 10</option>	
+																-->												
 														</select>
 														<!--<button type="button" class="btn btn-primary btn-md">-->													
 														<button id="bt_edit_selectList" type="button" class="btn btn-default btn-md" onclick = 'editar_selectList()'>
