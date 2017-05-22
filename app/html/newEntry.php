@@ -89,10 +89,12 @@ function load_distritos()
     startSpinner();
     var id = document.getElementById("provincia");
     var nombreP = id.options[id.selectedIndex].text;
-    var nombreC = document.getElementById("canton");
+    var id2 = document.getElementById("canton");
+    var nombreC = id2.options[id.selectedIndex].text;
     alert("hola");
     alert(nombreC);
     alert(nombreP);
+    alert("hola22222");
     $.get("/scripts/load-distritos.php", { nombreP: nombreP, nombreC: nombreC },
         function(result)
         {
