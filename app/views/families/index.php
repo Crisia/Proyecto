@@ -100,10 +100,10 @@
 																-->												
 														</select>
 														<!--<button type="button" class="btn btn-primary btn-md">-->													
-														<button id="bt_edit_selectList" type="button" class="btn btn-default btn-md" onclick = 'editar_selectList()'>
+														<button id="bt_edit_selectList" type="button" class="btn btn-default btn-md" onclick = 'add_edit_selectList("1")'>
 															<span class="glyphicon glyphicon-edit"></span> Editar
 														</button>
-														<button id="bt_add_selectList" type="button" class="btn btn-primary btn-md" onclick = 'agregar_selectList()'>
+														<button id="bt_add_selectList" type="button" class="btn btn-primary btn-md" onclick = 'add_edit_selectList("0")'>
 															<span class="glyphicon glyphicon-plus"></span> Agregar
 														</button>
 														<button id="bt_remove_selectList" type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#quitarModalSL">
@@ -196,9 +196,9 @@
 													<div class="form-group">
 														<label id='lbNuevo_edit'>Nueva 'Familia'</label>
 														<div class="form-group">
-															<label id="lblItemSelect">Nuevo:</label>
+															<!-- <label id="lblItemSelect">Nuevo:</label>-->
 															<input id="input_nuevo" class="form-control">
-															<button id="bt_guardar_nuevo_edit" type="button" class="btn btn-success btn-md">
+															<button id="bt_guardar_nuevo_edit" type="button" class="btn btn-success btn-md" onclick='guardarNuevoEdit()'>
 																<span class="glyphicon glyphicon-floppy-disk"></span> Guardar
 															</button>																						
 															<button id="bt_cancel_nuevo_edit" type="button" class="btn btn-warning btn-md">
