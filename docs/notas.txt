@@ -5,7 +5,12 @@ Gustavo
     [listo] consulta de muestra
 	[listo] administrar usuarios
 	[listo] validar muestrar
-	[listo] administrar validadores colectores
+	[listo] administrar colectores
+	[pendiente] administrar validadores
+	[pendiente] subir imagen en validar
+
+	Para cargar la imagen:
+    https://blueimp.github.io/jQuery-File-Upload/index.html
 
 Crisia
 	digitalizar muestra
@@ -13,7 +18,3 @@ Crisia
 
 Gerardo
 	administrar familia genero especie
-
-
-para cargar la imagen:
-https://blueimp.github.io/jQuery-File-Upload/index.html

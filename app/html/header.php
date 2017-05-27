@@ -122,6 +122,9 @@ if (strpos($page, "login.php") === false)
                                 <li>
                                     <a href="/colectores/lista/">Gentión de Colectores</a>
                                 </li>
+                              <li>
+                                <a href="/validadores/lista/">Gentión de Validadores</a>
+                              </li>
                             </ul>
                         </li>
                       <?php }?>

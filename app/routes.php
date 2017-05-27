@@ -21,6 +21,11 @@ function call($controller, $action) {
       require_once('models/colector.php');
       $controller = new ColectoresController();
       break;
+    case 'validadores':
+      // we need the model to query the database later in the controller
+      require_once('models/validador.php');
+      $controller = new ValidadoresController();
+      break;
 
     case 'pending':
       require_once('models/pending.php');
@@ -36,6 +41,7 @@ $controllers = array('pages' => array('home', 'error'),
                      'users' => array('index', 'show'),
                      'families' => array('index', 'show'),
                      'colectores' => array('lista', 'detalle'),
+                     'validadores' => array('lista', 'detalle'),
                      'pending' => array('index', 'show')
   );
 
