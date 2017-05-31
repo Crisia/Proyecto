@@ -5,23 +5,150 @@ var item_select ='';    // Lista seleccionable
 var Sfamilia = "";
 var Sgenero = "";
 var Sespecie = "";
+var nuevo_edit = true;
 
-function guardarFamilia(nuevo,anterior){
-    document.getElementById("input_nuevo").value="";
+var strSelecGen ="Seleccione un Género";
+var strSelecEsp ="Seleccione una Especie";
+
+function Space(X){
+    return pad('', ' ', X);
+}
+function quitar_familia(familia){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var respuesta = this.responseText;            
             if (respuesta.length>0){
                 //var ddl = document.getElementById("ddGenero");
-                //ddl.innerHTML = respuesta;
-                alert(respuesta);
+                //ddl.innerHTML = respuesta;               
+                var selectList = document.getElementById("selectList");                    
+                selectList.options.remove(selectList.selectedIndex);
             }
+        }
+    };         
+    familia = familia.trim();    
+    var parametros="opcion=deleteFamilia"+"&familia="+familia;
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+
+function guardarFamilia(nuevo){
+    document.getElementById("input_nuevo").value="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if ( (respuesta != null) && (respuesta != "") ){
+                var selectList = document.getElementById("selectList");                    
+                var option = document.createElement("option");
+                option.text = respuesta;
+                option.value = respuesta;
+                selectList.options.add(option);                                        
+                document.getElementById("area_nuevo_edit").style.display = "none";                
+            }
+            document.getElementById("selectList").disabled  = false; 
+        }
+    };     
+    nuevo = nuevo.trim();    
+    var parametros="opcion=setFamilia"+"&familiaNue="+nuevo+"&familiaAnt=";
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+function cambiarFamilia(nuevo,anterior){
+    document.getElementById("input_nuevo").value="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if ( (respuesta != null) && (respuesta != "") ){
+                var ddl = document.getElementById("selectList");
+                var opcion =ddl.options[ddl.selectedIndex];
+                opcion.text = respuesta;
+                opcion.value = respuesta;                
+            }
+            document.getElementById("area_nuevo_edit").style.display = "none";
+            document.getElementById("selectList").disabled  = false; 
         }
     }; 
     nuevo = nuevo.trim();
     anterior = anterior.trim();
-    var parametros="opcion=setFamilia"+"&familiaNue="+familia+"&familiaAnt="+anterior;
+    var parametros="opcion=setFamilia"+"&familiaNue="+nuevo+"&familiaAnt="+anterior;
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+function guardarGenero(familia,nuevo){
+    document.getElementById("input_nuevo").value="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {            
+            var respuesta = this.responseText;           
+            if ( (respuesta != null) && (respuesta != "") ){
+                alert(respuesta);
+                var selectList = document.getElementById("selectList");                    
+                var opcion = document.createElement("option");
+                opcion.text = respuesta;
+                opcion.value = respuesta;
+                selectList.options.add(opcion);                                                            
+            }
+            document.getElementById("area_nuevo_edit").style.display = "none";
+            document.getElementById("selectList").disabled  = false; 
+        }
+    };     
+    nuevo = nuevo.trim();    
+    var parametros="opcion=setGenero"+"&familia="+familia+"&generoNue="+nuevo+"&generoAnt="+"";
+    alert(parametros);
+    //xmlhttp.open("GET", "../../scripts/gestion_familias_edit_G.php?"+parametros, true);
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit_G.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+    //xmlhttp.send();
+}
+function guardarEspecie(familia,genero,nuevo){
+    document.getElementById("input_nuevo").value="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {            
+            var respuesta = this.responseText;           
+            if ( (respuesta != null) && (respuesta != "") ){
+                alert(respuesta);
+                var selectList = document.getElementById("selectList");                    
+                var opcion = document.createElement("option");
+                opcion.text = respuesta;
+                opcion.value = respuesta;
+                selectList.options.add(opcion);                                                            
+            }
+            document.getElementById("area_nuevo_edit").style.display = "none";
+            document.getElementById("selectList").disabled  = false; 
+        }
+    };     
+    nuevo = nuevo.trim();    
+    var parametros="opcion=setEspecie"+"&familia="+familia+"&genero="+genero+"&especieNue="+nuevo+"&especieAnt="+"";
+    alert(parametros);
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit_E.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+function cambiarGenero(familia, nuevo, anterior){
+    document.getElementById("input_nuevo").value="";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if ( (respuesta != null) && (respuesta != "") ){
+                var ddl = document.getElementById("selectList");
+                var opcion =ddl.options[ddl.selectedIndex];
+                opcion.text = respuesta;
+                opcion.value = respuesta;                
+            }
+            document.getElementById("area_nuevo_edit").style.display = "none";
+            document.getElementById("selectList").disabled  = false; 
+        }
+    };     
+    nuevo = nuevo.trim();    
+    var parametros="opcion=setGenero"+"&familia="+familia+"&generoNue="+nuevo+"&generoAnt="+anterior;
     xmlhttp.open("POST", "../../scripts/gestion_familias_edit.php?", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(parametros);
@@ -82,11 +209,11 @@ function despl_ListSeleccionable(indEditor){
         break; 
     case "1":
     document.getElementById("bt_edit_selectList").style.display = "none";
-        parametros = "opcion=getList_FamiliaGenero"+"&familia="+familia;
+        parametros = "opcion=getList_FamiliaGenero"+"&familia="+Sfamilia;
         break;
     case "2":
     document.getElementById("bt_edit_selectList").style.display = "block";
-        parametros = "opcion=getList_FamiliaGeneroEspecie"+"&familia="+familia+"&genero="+genero;
+        parametros = "opcion=getList_FamiliaGeneroEspecie"+"&familia="+Sfamilia+"&genero="+Sgenero;
         break;
     default:
         parametros = "";            
@@ -99,20 +226,32 @@ function despl_ListSeleccionable(indEditor){
 }
 
 function selectFamilia(familia){ 
-    Sfamilia = familia;   
-    var txtFamiliaSel = document.getElementById("txtFamiliaSel");
+    Sfamilia = familia; 
+    Sfamilia = Sfamilia.trim();  
+    Sgenero = "";
+    Sespecie = "";
+    var txtGeneroSel = document.getElementById("txtGeneroSel");
+    txtGeneroSel.innerHTML = strSelecGen;
+    var txtEspecieSel = document.getElementById("txtEspecieSel");
+    txtEspecieSel.innerHTML = strSelecEsp;
+    var txtFamiliaSel = document.getElementById("txtFamiliaSel");    
     txtFamiliaSel.innerHTML = familia;
     cargarDatos_familiaGeneros(familia);    
 }
 function selectGenero(genero){
     Sgenero = genero;
-    var familia = document.getElementById("txtFamiliaSel").innerHTML;
+    Sgenero = Sgenero.trim();
+    Sespecie = "";
+    var txtEspecieSel = document.getElementById("txtEspecieSel");
+    txtEspecieSel.innerHTML = strSelecEsp;
+    var familia = document.getElementById("txtFamiliaSel").innerHTML;    
     var txtGeneroSel = document.getElementById("txtGeneroSel");
     txtGeneroSel.innerHTML = genero;
     cargarDatos_familiaGeneroEspecies(familia,genero);
 }
 function selectEspecie(especie){
     Sespecie = especie;
+    Sespecie = Sespecie.trim();
     var txtEspecieSel = document.getElementById("txtEspecieSel");
     txtEspecieSel.innerHTML = especie;
 }
@@ -145,15 +284,19 @@ function deshabilitar_BnEdicion(valor,clase){
 
 function desp_AreaEdicion(indEditor,idObject){     
     var puede = true;
-    //alert(indEditor+" " +Sfamilia+" " +Sgenero+" " + puede);    
-    if (indEditor == "1")
-        puede = (Sfamilia != "");
-    else{ 
-        if (indEditor == "2")
+    switch (indEditor) {
+        case 1:
+            puede = (Sfamilia != "");
+            break; 
+        case 2:
             puede = (Sfamilia != "") && (Sgenero != "");
+            break;
+        case 3:
+            puede = (Sfamilia != "") && (Sgenero != "") && (Sespecie != "");
+            break;
     }
-    //alert(indEditor+" " +Sfamilia+" " +Sgenero+" " + puede);
     if (puede) {
+        document.getElementById("selectList").disabled  = false; 
         deshabilitar_BnEdicion(true,1);
         edicionActual=editores[indEditor];
 
@@ -169,7 +312,7 @@ function desp_AreaEdicion(indEditor,idObject){
     }
 }
  
-/*function desp_SAreaNuevo(){
+/*function desp_SAreaNuevoEdit(){
     document.getElementById("area_nuevo_edit").style.display ="block";
     document.getElementById("lbNuevo_edit").innerText = 'Agregar ' + edicionActual;
     document.getElementById("lblItemSelect").innerText = 'Nuevo';
@@ -207,70 +350,95 @@ function desp_SAreaListCompleta(){
     }
 }*/
 function add_edit_selectList(opcion){ 
-    document.getElementById("area_listCompleta").style.display ="none";  
+    document.getElementById("area_listCompleta").style.display ="none"; 
+    var selectList = document.getElementById("selectList");             
     if (opcion == 0) {
         item_select="";
-        switch (edicionActual) {
-            case editores[0]:
-                desp_area_nuevo_edit(0);
-                break; 
-            case editores[1]:
-                desp_SAreaListCompleta();
-                break;
-            case editores[2]:
-                desp_area_nuevo_edit(0);
-                break;
-        }
+        desp_area_nuevo_edit(0);
+        selectList.selectedIndex = -1;
     } else{
-        if (opcion == 1) {
-            switch (edicionActual) {
-                case editores[0]:
-                    desp_area_nuevo_edit(1);
-                    break; 
-                case editores[1]:
-                    break;
-                case editores[2]:
-                    desp_area_nuevo_edit(1);
-                    break;
+        if (opcion == 1) {            
+            if (selectList.selectedIndex != -1) {
+                desp_area_nuevo_edit(1);
             }
         }
     }            
 }
+
 function desp_area_nuevo_edit(opcion){
-    area = document.getElementById("area_nuevo_edit");    
-    area.style.display = "block";
-    lbl = document.getElementById("lbNuevo_edit");
-    txtNuevo = document.getElementById("input_nuevo");
-    if (opcion == 0) {        
-        lbl.innerText = "Agregar " + edicionActual;
-        txtNuevo.innerText = "";
-    }
-    else{
-        lbl.innerText = "Editar " + edicionActual;
-        txtNuevo.innerText = item_select;
+    nuevo_edit = (opcion==0);
+    document.getElementById("selectList").disabled = true; 
+    switch (edicionActual) {
+        case editores[2]:
+            alert("pendiente");
+            break; 
+        case editores[0]:
+        case editores[1]:{
+            area = document.getElementById("area_nuevo_edit");    
+            area.style.display = "block";
+            lbl = document.getElementById("lbNuevo_edit");
+            txtNuevo = document.getElementById("input_nuevo");
+            if (opcion == 0) {                                       
+                lbl.innerText = "Agregar " + edicionActual;
+                txtNuevo.innerText = "";
+                item_select = "";
+            }
+            else{
+                lbl.innerText = "Editar " + edicionActual;
+                txtNuevo.value = item_select;
+            }
+            break; 
+        }
     }
 }
 function guardarNuevoEdit(){
     txtNuevo = document.getElementById("input_nuevo");
     nombre = txtNuevo.value;
-    nombre = nombre.trim();
-    if (nombre!=""){
-        switch (edicionActual) {
-            case editores[0]:
-                guardarFamilia(nombre,item_select);
-                break; 
-            case editores[1]:
-                alert("Pendiente");
-                break;
-            case editores[2]:
-                alert("Pendiente");
-                break;
-        }
+    nombre = nombre.trim();    
+    if (nombre!=""){  
+        if (nuevo_edit) {
+            switch (edicionActual) {
+                case editores[0]:
+                    guardarFamilia(nombre);
+                    break; 
+                case editores[1]:
+                    guardarGenero(Sfamilia,nombre);
+                    break;
+                case editores[2]:
+                    guardarGenero(Sfamilia,Sgenero,nombre);
+                    break;
+            }
+        }     
+        else{
+            switch (edicionActual) {
+                case editores[0]:
+                    cambiarFamilia(nombre,item_select);
+                    break; 
+                case editores[1]:
+                    cambiarGenero(Sfamilia,nombre,item_select);
+                    break;
+                case editores[2]:
+                    //cambiarGenero(Sfamilia,Sgenero,nombre,item_select);
+                    break;
+            }
+        } 
     }
 }
 
-function quitar_selectList(){     
-    alert('Pendiente - quietar asociacion y de la lista');
+function quitar_selectList(){   
+    if (item_select!=""){
+        switch (edicionActual) {
+            case editores[0]:
+                quitar_familia(item_select);
+                break; 
+            case editores[1]:
+                alert('Pendiente - quietar asociacion y de la lista');
+                break;
+            case editores[2]:
+                alert('Pendiente - quietar asociacion y de la lista');
+                break;
+        }
+    }         
 }
 
 function ok_listCompleta(){
@@ -287,7 +455,29 @@ function quitar_listCompleta(){
     alert('Pendiente - quietar de la lista');
 }
 function itemSelect(){
-    return familia + " " + familia + " " + genero + " " +especie;
+    return Sfamilia + " " + Sgenero + " " + item_select;
+}
+function selecionarItem(){
+    var selectList = document.getElementById("selectList");
+    item_select = selectList.value;
+    item_select = item_select.trim();    
+    //alert (item_select);
+}
+function eliminarMsJ(){    
+    var bt_remove = document.getElementById("bt_remove_selectList");
+    bt_remove.setAttribute("data-toggle","");
+    bt_remove.setAttribute("data-target","");    
+    if (item_select!=""){
+        //var msj1= "Eliminar "+ edicionActual;
+        //var msj2= "¿Desea eliminar el item: "+ itemSelect() + "?";
+        //getMsjEli_SelectLis(msj1,msj2);
+    //}        
+        bt_remove.setAttribute("data-toggle","modal");
+        bt_remove.setAttribute("data-target","#quitarModalSL");   
+        document.getElementById("quitarModalSL").style.display ="inline-block";
+        document.getElementById("msj1_eli_selectLis").innerHTML ="Eliminar "+ edicionActual;
+        document.getElementById("msj2_eli_selectLis").innerHTML ="¿Desea eliminar el item: "+ itemSelect() + "? ";
+    }
 }
 
 cerrarAreaEdicion();
