@@ -85,7 +85,7 @@
 													<div class="form-group">
 														<label id='lbSelectList'>Lista de Familias Seleccionables</label>
 														<input id="filtro_selectList" class="form-control" placeholder ="Filtro">
-														<select id="selectList" class="form-control" size=9>
+														<select id="selectList" class="form-control" size=9 onchange="selecionarItem()">
 																<!--																	
 																<option>Familia 01</option>
 																<option>Familia 02</option>
@@ -106,21 +106,21 @@
 														<button id="bt_add_selectList" type="button" class="btn btn-primary btn-md" onclick = 'add_edit_selectList("0")'>
 															<span class="glyphicon glyphicon-plus"></span> Agregar
 														</button>
-														<button id="bt_remove_selectList" type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#quitarModalSL">
+														<button id="bt_remove_selectList" type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#quitarModalSL" onclick="eliminarMsJ()">
 															<span class="glyphicon glyphicon-minus"></span> Quitar
 														</button>
 														<!-- Modal_Ini -->
-														<div class="modal fade" id="quitarModalSL" role="dialog">
+														<div  class="modal fade" id="quitarModalSL" role="dialog">
 															<div class="modal-dialog modal-sm">
 															
 															<!-- Modal content-->
 															<div class="modal-content">
 																<div class="modal-header">
 																<button type="button" class="close" data-dismiss="modal">&times;</button>
-																<h4 class="modal-title">Eliminar ejemp_Familia</h4>
+																<h4 id = "msj1_eli_selectLis" class="modal-title">Eliminar ejemp_Familia</h4>
 																</div>
 																<div class="modal-body">
-																<p id='msj_modal_1'>¿Desea eliminar la ejemp_Familia seleccionada?</p>
+																<p id='msj2_eli_selectLis'>¿Desea eliminar la ejemp_Familia seleccionada?</p>
 																</div>
 																<div class="modal-footer">
 																<button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick='quitar_selectList()'>Aceptar</button>
