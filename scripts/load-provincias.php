@@ -11,11 +11,12 @@ if(!$data)
   $data = $db->getData("provincias()");
   $_SESSION['provincias'] = $data;
 }
+$salida="<option value=>Provincia</option>";
 
 foreach($data as $d)
 {
-	$key = $d['Id'];
 	$value = $d['Nombre'];
-	echo "<option value=\"$key\">$value</option>";
+	$salida = $salida."<option value=\"$value\">$value</option>";
 }
+echo ($salida);
 ?>

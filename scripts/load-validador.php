@@ -2,13 +2,13 @@
 
 require_once ('../app/Startup.php');
 
-$nombre = $_REQUEST["nombre"];
+//$nombre = $_REQUEST["nombre"];
 //$nombre = "Asteraceae";
 $db = DB::getInstance();
 
-$data = $db->getData("buscarFamilia_Genero('".$nombre."')");
+$data = $db->getData("obtenerValidador()");
 $salida="";
-$salida= "<option value=Genero>Genero</option>";
+$salida= "<option value=>Validador</option>";
 foreach($data as $d)
 {
 	$value = $d['Nombre'];

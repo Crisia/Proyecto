@@ -6,11 +6,13 @@ $nombre = $_REQUEST["nombre"];
 //$nombre = "Cartago";
 $db = DB::getInstance();
 $data = $db->getData("cantones('".$nombre."')");
-
+$salida="";
+$salida="<option value=>Cantón</option>";
 foreach($data as $d)
 {
 	$value = $d['nombre'];
-	echo "<option value=\"$value\">$value</option>";
+	$salida=$salida."<option value=\"$value\">$value</option>";
 }
+echo ($salida);
 
 ?>
