@@ -42,7 +42,7 @@
 											<span class="caret"></span>												
 											<button id='editarGeneros' class="btn btn-default glyphicon glyphicon-edit" type="button" onclick="desp_AreaEdicion('1','editarGeneros')"></button>						
 										</button>										
-										<ul id="ddGenero" class="dropdown-menu" role="menu" style=" max-height: 300px; ">
+										<ul id="ddGenero" class="dropdown-menu" role="menu">
 											<!-- Loop -->
 											<!-- END Loop -->												
 										</ul>										
@@ -58,11 +58,11 @@
 											<span class="caret"></span>												
 											<button id='editarEspecies' class="btn btn-default glyphicon glyphicon-edit" type="button" onclick="desp_AreaEdicion('2','editarEspecies')"></button>						
 										</button>										
-										<ul id="ddlEspecies" class="dropdown-menu" role="menu" style=" max-height: 300px; ">
+										<ul id="ddlEspecies" class="dropdown-menu" role="menu">
 											<!-- Loop -->
-											<li data-value="Customer"><a href="#">Especie 01 </a></li>
+											<!--<li data-value="Customer"><a href="#">Especie 01 </a></li>
 											<li data-value="Vendor"><a href="#">Especie02 </a></li>
-											<li data-value="Competitor"><a href="#">Especie03 </a></li>
+											<li data-value="Competitor"><a href="#">Especie03 </a></li>-->
 											<!-- END Loop -->												
 										</ul>										
 									</div>								
@@ -141,7 +141,7 @@
 														<label id='lbListCompleta'>Lista Completa de: XXX</label>
 														<input id="filtro_lbListCompleta" class="form-control" placeholder ="Filtro">
 														<select id="listCompleta" class="form-control" size=9>
-																<option>Genero 01</option>
+																<!--<option>Genero 01</option>
 																<option>Genero 02</option>
 																<option>Genero 03</option>
 																<option>Genero 04</option>
@@ -150,7 +150,7 @@
 																<option>Genero 07</option>
 																<option>Genero 08</option>
 																<option>Genero 09</option>
-																<option>Genero 10</option>													
+																<option>Genero 10</option>-->												
 														</select>
 														<button id="bt_ok_listCompleta" type="button" class="btn btn-success btn-md" onclick='ok_listCompleta()'>
 															<span class="glyphicon glyphicon-ok"></span> Ok
