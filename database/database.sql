@@ -633,7 +633,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ingresarMuestra`(nombreFamilia varchar(126) ,nombreGenero varchar(126), 
 	nombreEspecie varchar(126), nombreValidador varchar(100), nombreColector varchar(100),
 	nombreProvincia varchar(126),nombreCanton varchar(126), nombreDistrito varchar(126), 
-	pLocalidad varchar(500), pLatitud varchar(50), pLongitud varchar(50), pAltitud varchar(50), pNota varchar(500))
+	pLocalidad varchar(500), pLatitud varchar(50), pLongitud varchar(50), pAltitud varchar(50), pNota varchar(500), pFecha datetime)
 begin
 	declare idDistrito int;
 	declare idColector int;
@@ -662,7 +662,7 @@ begin
 	Then
 		insert into Muestra(IdDistrito,IdColector,IdValidador,IdEspecieXgenero,Localidad,Latitud,Longitud,Altitud,FechaIngreso,
 		FechaColecto,nota) values(idDistrito,idColector,idValidador,idEspecieXgenero,pLocalidad,pLatitud,pLongitud,pAltitud,
-		CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,pNota);
+		CURRENT_TIMESTAMP,pFecha,pNota);
 		Select 1 as resultado;	
 	
     end IF;
