@@ -23,16 +23,15 @@ if (isset($_REQUEST['opcion'])){
         }      
         case 'deleteFamilia':{
             //echo "estoy aqui3";
-            if ((isset($_REQUEST['familiaNue'])) && (isset($_REQUEST['familiaAnt'])) ){
-                $familiaNue = $_REQUEST['familiaNue'];
-                $familiaAnt = $_REQUEST['familiaAnt'];
+            if (isset($_REQUEST['familia'])){
+                $familia = $_REQUEST['familia'];
                 //echo $familia;
                 $db = DB::getInstance();
                 $data = $db->getData("borrarFamilia('".$familia."')");
                 $salida = "";
                 foreach($data as $d)
                 {                    
-                    $value = $d['Nombre'];                    
+                    $salida = $d['Nombre'];                    
                 }
                 echo $salida;                
             }

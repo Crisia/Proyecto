@@ -5,26 +5,28 @@ $salida ="";
 if (isset($_REQUEST['opcion'])){
     $opcion = $_REQUEST['opcion'];       
     switch($opcion) { 
-        case 'setGenero':{
-            if ((isset($_REQUEST['generoNue'])) && (isset($_REQUEST['generoAnt']))  && (isset($_REQUEST['familia'])) ){
-                $generoNue = $_REQUEST['generoNue'];
-                $generoAnt = $_REQUEST['generoAnt'];
+        case 'setEspecie':{
+            if ((isset($_REQUEST['especieNue'])) && (isset($_REQUEST['especieAnt']))  && (isset($_REQUEST['familia'])) && (isset($_REQUEST['genero'])) ){
+                $especieNue = $_REQUEST['especieNue'];
+                $especieAnt = $_REQUEST['especieAnt'];
                 $familia = $_REQUEST['familia'];
+                $genero = $_REQUEST['genero'];
                 //echo $familia;generoNue
                 $db = DB::getInstance();
-                $data = $db->getData("guardarFamiliaGenero('".$generoNue."','".$generoAnt."','".$familia."')");
+                $data = $db->getData("guardarFamiliaGeneroEspecie('".$especieNue."','".$especieAnt."','".$familia."','".$genero."')");
                 $salida = $data[0]['Nombre'];                                                   
             }
             break;  
         }     
-        case 'deleteFamilia_genero':{
+    case 'deleteFamilia_genero_especie':{
             //echo "estoy aqui3";
             if (isset($_REQUEST['familia'])){
                 $familia = $_REQUEST['familia'];
                 $genero = $_REQUEST['genero'];
+                $genero = $_REQUEST['especie'];
                 //echo $familia;
                 $db = DB::getInstance();
-                $data = $db->getData("borrarFamilia_genero('".$genero."')");
+                $data = $db->getData("borrarFamilia_genero_especie('".$especie."')");
                 $salida = "";
                 foreach($data as $d)
                 {                    
