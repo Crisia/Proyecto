@@ -17,23 +17,25 @@ $latitud = $_REQUEST["latitud"];
 $longitud = $_REQUEST["longitud"];
 $altitud = $_REQUEST["altitud"];
 
+
 /*$provincia = "San Jose";
 $canton = "San Jose";
 $distrito = "Carmen";
 $familia = "Asteraceae";
 $genero = "Cichorium";
 $especie = "Endivia";
-$colector = "Crisia Piedra Chaves";
-$validador = "Yulian Ulloa Porras";
+$colector = "Crisiaa Piedra Chaves";
+$validador = "Yuliana Ulloa Porras";
 $fecha = "1970-01-01 00:00:00";
 $nota = "Nota";
 $localidad = "localidad";
 $latitud = "latitud";
 $longitud = "longitud";
 $altitud = "altitud";*/
+
 //$nombre = "Cartago";
 $db = DB::getInstance();
-$data = $db->getData("ingresarMuestra('".$familia."','".$genero."','".$especie."','".$validador."','".$colector."','".$provincia."','".$canton."','".$distrito."','".$localidad."','".$latitud."','".$longitud."','".$altitud."','".$nota."')");
+$data = $db->getData("ingresarMuestra('".$familia."','".$genero."','".$especie."','".$validador."','".$colector."','".$provincia."','".$canton."','".$distrito."','".$localidad."','".$latitud."','".$longitud."','".$altitud."','".$nota."','".$fecha."')");
 $salida="";
 
 foreach($data as $d)
