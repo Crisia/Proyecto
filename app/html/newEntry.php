@@ -39,11 +39,19 @@ catch (Exception $ex)
 <script type="text/javascript">
 $(document).ready(function(){
     load_provincias();
-	$("#provincia").change(function(){load_cantones();});
-    $("#canton").change(function(){load_distritos();});
-	$("#canton").attr("disabled",true);
-    $("#distrito").attr("disabled",true);
+    //cargarDatos_provincia();
+    load_caracteristicas();
+    load_familia();
+    cargarDatos_colector();
+    cargarDatos_validador();
+
+    
+  //$("#familia").change(function(){load_genero();});
+  //$("#genero").change(function(){load_especie();});
+    //$("#genero").attr("disabled",true);
+  //$("#especie").attr("disabled",true);
 });
+ 
 
 function load_provincias()
 {
@@ -51,7 +59,7 @@ function load_provincias()
 	$.get("/scripts/load-provincias.php", function(result){
 		if(result == false)
 		{
-			alert("Error");
+			//alert("Error");
 		}
 		else
 		{
@@ -70,11 +78,11 @@ function load_cantones()
 		{
 			if(result == false)
 			{
-				alert("Error");
+				//alert("Error");
 			}
 			else
 			{
-        alert(result);
+        //alert(result);
 				$("#canton").attr("disabled",false);
 				document.getElementById("canton").options.length=1;
 				$('#canton').append(result);
@@ -84,6 +92,8 @@ function load_cantones()
 
 	);
 }
+
+
 function load_distritos()
 {
     startSpinner();
@@ -91,16 +101,12 @@ function load_distritos()
     var nombreP = id.options[id.selectedIndex].text;
     var id2 = document.getElementById("canton");
     var nombreC = id2.options[id.selectedIndex].text;
-    alert("hola");
-    alert(nombreC);
-    alert(nombreP);
-    alert("hola22222");
     $.get("/scripts/load-distritos.php", { nombreP: nombreP, nombreC: nombreC },
         function(result)
         {
             if(result == false)
             {
-                alert("Error");
+                //alert("Error");
             }
             else
             {
@@ -112,6 +118,73 @@ function load_distritos()
         }
 
     );
+}
+function load_familia()
+{
+	startSpinner();
+	$.get("/scripts/load-familia.php", function(result){
+		if(result == false)
+		{
+			alert("Error");
+		}
+		else
+		{
+			$('#familia').append(result);
+		}
+		stopSpinner();
+    //load_genero();
+  
+	});	
+}
+
+function load_caracteristicas()
+{
+
+  
+	startSpinner();
+	$.get("/scripts/load-caracteristicas.php", function(result){
+		if(result == false)
+		{
+			alert("Error");
+		}
+		else
+		{
+      
+			$('#checkbox').append(result);
+		}
+		stopSpinner();
+    //load_genero();
+  
+	});	
+}
+
+
+
+
+
+function habilitar(value)
+{
+  
+			if(document.getElementById("Flores").checked ||  document.getElementById("Frutos").checked) 
+			{ 
+				document.getElementById("Muestra Esteril").checked=false;
+			}
+      else if( document.getElementById("Muestra Esteril").checked) 
+      {
+				// deshabilitamos
+				document.getElementById("Flores").checked=false;
+        document.getElementById("Frutos").checked=false;
+			}
+      else if(document.getElementById("Muestra Esteril").checked==false || document.getElementById("Frutos").checked || document.getElementById("Flores").checked )
+      {
+        document.getElementById("Frutos").checked=false;
+        document.getElementById("Flores").checked=false;
+        document.getElementById("Muestra Esteril").checked=true;
+
+      }
+      
+      
+    
 }
 </script>
 
@@ -170,49 +243,74 @@ function load_distritos()
               <div class="row">
               	<div class="col-lg-12">
               	
-                  <form role="form" data-toggle="validator" method="post" action="newEntry.php">
+                  <form role="form" data-toggle="validator" method="post">
                     <fieldset>
                             <div class="form-group">
-      						<select class="form-control input-sm" tabindex="1" name="familia" id="familia" required>
-                              <option value="">Familia</option>
-                              <option value="1">Uno</option>
-      		                  <option value="2">Dos</option>
+                            <Label>Familia</label>
+      						<select class="form-control input-sm" tabindex="1" name="familia" id="familia" onchange="cargarDatos_genero()" required>
+                              
+                              
       		                </select>
-                <select class="form-control input-sm" tabindex="1" name="genero" id="genero" required>
+                          <Label>Género</label>
+                <select class="form-control input-sm" tabindex="1" name="genero" id="genero" onchange= "cargarDatos_especie()"  required>
                               <option value="">Genero</option>
-                              <option value="1">Uno</option>
-      		                  <option value="2">Dos</option>
+              
       		                </select>
+                          <Label>Especie</label>
               <select class="form-control input-sm" tabindex="1" name="especie" id="especie" required>
                               <option value="">Especie</option>
-                              <option value="1">Uno</option>
-      		                  <option value="2">Dos</option>
       		                </select>
-              <select class="form-control input-sm" tabindex="1" name="colector" id="colector" required>
+              
+                          
+        <div class="panel-heading">
+              <strong>Caracteristicas de la Muestra</strong>
+        </div>
+     <div class="checkbox" id="checkbox" onclick="habilitar(this.value)">
+    </div>
+    
+    </div>
+    <label>Colector</label>
+    <select class="form-control input-sm" tabindex="1" name="colector" id="colector" required>
                               <option value="">Colector</option>
-                              <option value="1">Uno</option>
-      		                  <option value="2">Dos</option>
+                              
       		                </select>
-      		                <input id="genero" name="genero" type="number" step="any" min="1" class="form-control input-sm" tabindex="2" autocomplete="off" placeholder="Género" required>
-      		                <input id="especie" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Especie" name="especie" required>
-      		                <input id="localizacion" class="form-control input-sm" type="text" tabindex="4" autocomplete="off" placeholder="Localización" name="localizacion" required>
-      		                <input id="colector" class="form-control input-sm" type="text" tabindex="5" autocomplete="off" placeholder="Colector" name="colector" required>
-      		                <input id="validador" class="form-control input-sm" type="text" tabindex="6" autocomplete="off" placeholder="Validador" name="validador" required>
-      		                <input id="estado_muestra" class="form-control input-sm" type="text" tabindex="7" autocomplete="off" placeholder="Estado de la muestra" name="estado_muestra" data-error="el texto ingresado es invalido" required>
+<label>Validador</label>
+<select class="form-control input-sm" tabindex="1" name="validador" id="validador" required>
+                              <option value="">Validador</option>
+                              
+      		                </select>
+<label>Fecha</label>                          
+<input class="form-control input-sm" tabindex="1" id="fecha" type="date" required>
+<label>Notas</label>   
+
+<textarea class="form-control" rows="5" id="nota"></textarea>
+
+<label>Localidad</label>
+<textarea class="form-control" rows="5" id="localidad"></textarea>
+<label>Latitud</label>
+<input id="latitud" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Latitud" name="latitud" required>
+<label>Longitud</label>
+<input id="logitud" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Longitud" name="longitud" required>
+<label>Altutud</label>
+<input id="altitud" class="form-control input-sm" type="text" tabindex="3" autocomplete="off" placeholder="Altitud" name="altitud" required> 
+
+      		                
 
       		                <!-- Provincia -->
-      		                <select class="form-control input-sm" tabindex="8" id="provincia" name="provincia" required>
-      		                    <option value="0">Provincia</option>
+      		                <select class="form-control input-sm" tabindex="8" id="provincia" name="provincia" onchange="cargarDatos_canton()"  required>
+      		                    
       		                </select>                
       		                <!-- Canton -->
-      		                <select class="form-control input-sm" tabindex="9" id="canton" name="canton" required>
-      		                    <option value="0">Canton</option>
+      		                <select class="form-control input-sm" tabindex="9" id="canton" name="canton" onchange="cargarDatos_distrito()" required>
+      		                    <option value="">Canton</option>
       		                </select>
       		                <!-- Distrito -->
       		                <select class="form-control input-sm" tabindex="10" name="distrito" id="distrito" required>
-      		                    <option value="0">Distrito</option>
+      		                    <option value="">Distrito</option>
       		                </select>
-                            <button name="btnNewTransaction" type="submit" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block">Crear nueva muestra</button>
+                            <button name="btnNewTransaction" type="submit" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block" onclick="enviarDatos_Muestra()" >Crear nueva muestra</button>
+                            
+														</div>
       	                </div>
                       </fieldset>
                     </form>
@@ -228,6 +326,7 @@ function load_distritos()
     <?php } ?>
 
   </div>
+  <script type="text/javascript" src="../../js/muestra.js"></script>
 
 <!-- FOOTER -->
 <?php include("footer.php"); ?>
