@@ -125,7 +125,7 @@ function load_familia()
 	$.get("/scripts/load-familia.php", function(result){
 		if(result == false)
 		{
-			alert("Error");
+			//alert("Error");
 		}
 		else
 		{
@@ -145,7 +145,7 @@ function load_caracteristicas()
 	$.get("/scripts/load-caracteristicas.php", function(result){
 		if(result == false)
 		{
-			alert("Error");
+			//alert("Error");
 		}
 		else
 		{
@@ -308,7 +308,7 @@ function habilitar(value)
       		                <select class="form-control input-sm" tabindex="10" name="distrito" id="distrito" required>
       		                    <option value="">Distrito</option>
       		                </select>
-                            <button name="btnNewTransaction" type="submit" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block" onclick="enviarDatos_Muestra()" >Crear nueva muestra</button>
+                            <button name="btnNewTransaction" type="button" tabindex="11" value="true" class="btn btn-lg btn-primary btn-block" onclick="enviarDatos_Muestra()" >Crear nueva muestra</button>
                             
 														</div>
       	                </div>
