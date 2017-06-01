@@ -32,6 +32,44 @@ function quitar_familia(familia){
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(parametros);
 }
+function quitar_familia_genero(familia,genero){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if (respuesta.length>0){
+                //var ddl = document.getElementById("ddGenero");
+                //ddl.innerHTML = respuesta;               
+                var selectList = document.getElementById("selectList");                    
+                selectList.options.remove(selectList.selectedIndex);
+            }
+        }
+    };         
+    familia = familia.trim();    
+    var parametros="opcion=deleteFamilia_genero"+"&familia="+familia+"&genero="+genero;
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit_G.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
+function quitar_familia_genero_especie(familia,genero,especie){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText;            
+            if (respuesta.length>0){
+                //var ddl = document.getElementById("ddGenero");
+                //ddl.innerHTML = respuesta;               
+                var selectList = document.getElementById("selectList");                    
+                selectList.options.remove(selectList.selectedIndex);
+            }
+        }
+    };         
+    familia = familia.trim();    
+    var parametros="opcion=deleteFamilia_genero_especie"+"&familia="+familia+"&genero="+genero+"&especie="+especie;
+    xmlhttp.open("POST", "../../scripts/gestion_familias_edit_E.php?", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(parametros);
+}
 
 function guardarFamilia(nuevo){
     document.getElementById("input_nuevo").value="";
@@ -113,7 +151,6 @@ function guardarEspecie(familia,genero,nuevo){
         if (this.readyState == 4 && this.status == 200) {            
             var respuesta = this.responseText;           
             if ( (respuesta != null) && (respuesta != "") ){
-                alert(respuesta);
                 var selectList = document.getElementById("selectList");                    
                 var opcion = document.createElement("option");
                 opcion.text = respuesta;
@@ -126,7 +163,6 @@ function guardarEspecie(familia,genero,nuevo){
     };     
     nuevo = nuevo.trim();    
     var parametros="opcion=setEspecie"+"&familia="+familia+"&genero="+genero+"&especieNue="+nuevo+"&especieAnt="+"";
-    alert(parametros);
     xmlhttp.open("POST", "../../scripts/gestion_familias_edit_E.php?", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(parametros);
@@ -213,6 +249,7 @@ function despl_ListSeleccionable(indEditor){
         break;
     case "2":
     document.getElementById("bt_edit_selectList").style.display = "block";
+        document.getElementById("bt_edit_selectList").style.display = "inline-block"; 
         parametros = "opcion=getList_FamiliaGeneroEspecie"+"&familia="+Sfamilia+"&genero="+Sgenero;
         break;
     default:
@@ -368,12 +405,14 @@ function add_edit_selectList(opcion){
 function desp_area_nuevo_edit(opcion){
     nuevo_edit = (opcion==0);
     document.getElementById("selectList").disabled = true; 
+    //alert (edicionActual);
     switch (edicionActual) {
-        case editores[2]:
-            alert("pendiente");
-            break; 
+        //case editores[2]:
+            //alert("pendiente-edit especial");
+            //break; 
         case editores[0]:
-        case editores[1]:{
+        case editores[1]:
+        case editores[2]:{
             area = document.getElementById("area_nuevo_edit");    
             area.style.display = "block";
             lbl = document.getElementById("lbNuevo_edit");
@@ -405,7 +444,7 @@ function guardarNuevoEdit(){
                     guardarGenero(Sfamilia,nombre);
                     break;
                 case editores[2]:
-                    guardarGenero(Sfamilia,Sgenero,nombre);
+                    guardarEspecie(Sfamilia,Sgenero,nombre);
                     break;
             }
         }     
@@ -432,10 +471,10 @@ function quitar_selectList(){
                 quitar_familia(item_select);
                 break; 
             case editores[1]:
-                alert('Pendiente - quietar asociacion y de la lista');
+                quitar_familia_genero(Sfamilia,item_select);
                 break;
             case editores[2]:
-                alert('Pendiente - quietar asociacion y de la lista');
+                quitar_familia_genero_especie(Sfamilia,Sgenero,item_select);
                 break;
         }
     }         
