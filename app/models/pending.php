@@ -43,6 +43,19 @@
       return $list;
     }
 
+      public static function all2() {
+          $list = array();
+          $db = Db::getInstance();
+          $pending = $db->getData('search()');
+
+          // we create a list of Post objects from the database results
+          foreach($pending as $p) {
+              $list[] = new Pending($p['Id'], $p['Familia'], $p['Genero'], $p['Especie'], $p['IdFamilia'], $p['IdGenero'], $p['IdEspecie'], $p['Colector'], $p['Validador'], $p['Direccion'], $p['FechaColecto'], $p['Localidad'], $p['nota']);
+          }
+
+          return $list;
+      }
+
     public static function find($id) {
       $db = Db::getInstance();
       // we make sure $id is an integer

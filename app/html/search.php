@@ -23,7 +23,7 @@ catch (Exception $ex)
 
 try
 {
-  $report = new Report($wsRequest, $account, Pending::all());
+  $report = new Report($wsRequest, $account, Pending::all2());
   $db = DB::getInstance();
   $transactions = $db->getData("search()");
   
